@@ -3,7 +3,7 @@
 High Performance Graphical data acquisition and control:
 
 An open-source command-line interface between Raspberry Pi and the
-[WaveShare High Performance Analog-Digital Digital-Analog(https://www.waveshare.com/high-precision-ad-da-board.htm)
+[WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
 hat for the Raspbery Pi.  
 
 ---------------------------------
