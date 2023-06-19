@@ -1,7 +1,10 @@
 # HPGdaac
 
 High Performance Graphical data acquisition and control:
-A command-line interface between Raspberry Pi and the WaveShare High Performance Analog-Digital Digital-Analog hat for the Raspbery Pi.  
+
+An open-source command-line interface between Raspberry Pi and the
+[WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
+hat for the Raspbery Pi.  
 
 ---------------------------------
 
@@ -19,7 +22,7 @@ A command-line interface between Raspberry Pi and the WaveShare High Performance
 sudo apt install libx11-xcb-dev
 ```
 
-4. clone software from github to your RPi, e.g., to ~/Code/
+4. clone software from github to your RPi, e.g., to your ~/Code/ directory
  
 ```
 mkdir ~/Code
@@ -138,6 +141,12 @@ HPGdaac <test configuration filename> <measured data filename>
 ```
 
 ... **HPGdaac** configures the internal parameters of the HPADDA, opens a window for plotting the data in real time, and asks if the user is ready.  
-Pressing "[enter]" or "Y [enter]" intiates the test.   The measured data will be displayed to the screen, and when the test is complete
-HPGdaac will write the data to a measured data file, which is a plain text file in which the provided <measured data filename> is appended by a date-time stamp.   The user may then choose to delete or retain the data file.   
+Pressing "[enter]" or "Y [enter]" intiates the test.   Measured data is displayed to the screen the instant it is measured,
+and when the test is complete
+**HPGdaac** writes the data to the measured data file (a plain text file) in which the provided *measured data filename* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
 
+---------------------------------
+
+## HPGdaac Performance
+
+... quantitative information to be added soon
