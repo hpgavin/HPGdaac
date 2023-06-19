@@ -1,0 +1,39 @@
+EXAMPLE TEST METADATA FILE for any/all data collection notes
+==============================================================================
+Experiments of  ... type the date here ...
+==============================================================================
+PURPOSE
+------------------------------------------------------------------------------
+type in the purpose of running these experiments
+ ... what you hope to find
+ ... why you need the data in the first place
+ ... the methods and experimental set-up that you are using
+ ... parameters controlling the experimental hardware
+     such as frequencies, feedback gains, etc.
+ ... anything else of interest
+==============================================================================
+Channel         Sensor                          Sensitivity
+------------------------------------------------------------------------------
+1               type of sensor on channel 1     volts / unit
+:               :                               :
+n               type of sensor on channel n     volts / unit
+==============================================================================
+
+Clip Correction Types:
+0: none;  3: cubic polynomial;  5: fifth order polynomial
+
+Detrending Types:
+0: none; 1: de-bias; 2: detrend; 3: baseline; 4: first point; 5: peak_peak
+
+==============================================================================
+
+File date-time   Description
+------------------------------------------------------------------------------
+20230215-120523  description of file 'test1.i'
+:                       :
+==============================================================================
+OBSERVATIONS:
+
+
+==============================================================================
+
