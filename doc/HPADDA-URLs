@@ -1,0 +1,58 @@
+
+https://www.waveshare.com/wiki/High-Precision_AD/DA_Board
+
+available GPIO pins 3, 5, 7, 8, 10, 18, 22, 24, 26, 27, 28, 29, 32, 36, 38, 40
+
+https://forums.raspberrypi.com/viewtopic.php?t=134270&sid=9b0edded3447f97d3e73ee5245281ba1
+
+https://github.com/waveshare/High-Pricision_AD_HAT
+
+ADS1256 ----------------------------------------------------
+
+https://www.ti.com/lit/ds/symlink/ads1256.pdf
+
+https://programming.vip/docs/61aa2f82cf96d.html
+
+https://curiousscientist.tech/blog/ads1256-arduino-stm32-sourcecode
+
+https://e2e.ti.com/support/data-converters-group/data-converters/f/data-converters-forum/32511/ads1256-mux
+
+https://raspberrypi.stackexchange.com/questions/99353/how-can-rpi-read-ads1256-adc-data
+
+BroadCom 2835 --------------------------------------------------
+
+https://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/
+
+https://bob.cs.sonoma.edu/IntroCompOrg-RPi/sec-cgpio.html
+
+http://www.airspayce.com/mikem/bcm2835/
+
+https://elinux.org/RPi_GPIO_Code_Samples
+https://elinux.org/RPi_BCM2835_GPIOs
+
+https://pinout.xyz/pinout/pin40_gpio21
+
+http://www.pieter-jan.com/node/15
+
+https://www.bigmessowires.com/2018/05/26/raspberry-pi-gpio-programming-in-c/
+
+Wiring Pi ------------------------------------------------------------------
+http://wiringpi.com/
+http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/
+
+PIgpio -------------------------------------------------------------------
+http://abyz.me.uk/rpi/pigpio/index.html
+http://abyz.me.uk/rpi/pigpio/piscope.html
+http://abyz.me.uk/rpi/pigpio/download.html
+
+
+Interrupt -----------------------------------------------------------------
+https://www.engineersgarage.com/how-to-use-alarm-signal-in-raspberry-pi-part-19-38/
+
+https://iosoft.blog/2020/06/11/fast-data-capture-raspberry-pi/
+
+https://elinux.org/images/d/df/Kind_of_real_time_linux4.pdf
+
+PreemptRT -----------------------------------------------------------------
+https://bootlin.com/blog/preempt-rt-training-course/
+

@@ -1,0 +1,106 @@
+
+start setup
+
+ delay 1000 ms
+
+ initialize_ADS1256:                                   HPADDAlibrary.c: 28
+
+    set  CS_pin  on MCU to serve as  OUTPUT            HPADDAlibrary.c: 41
+    set  CS_pin  LOW                                   HPADDAlibrary.c: 42
+
+    SPI.begin  
+
+    set  DRDY_pin   on MCU to serve as  INPUT          HPADDAlibrary.c: 43-44
+    set  RESET_pin  on MCU to serve as  OUTPUT         implemented 20220928
+    set  RESET_pin  LOW                                implemented 20220928
+
+   delay 500 ms                                        implemented 20220928
+
+    set  RESET_pin  HIGH                               implemented 20220928
+
+   delay 500 ms                                        implemented 20220928
+
+ ... end of initialize_ADS1256
+
+ delay 1000 ms                                         implemented 20220928
+
+ reset_ADS1256:
+
+     SPI.beginTransaction(SPISettings(1920000, MSBFIRST, SPI_MODE1)); // initialize SPI with  clock, MSB first, SPI Mode1               HPADDAlibrary.c: 52-56
+
+    set  CS_pin  LOW                                    HPADDAlibrary.c: 59
+
+    delay 10 us                                         implemented 20220928
+
+    SPI transfer 0xFE  // reset                         HPADDAlibrary.c: 63
+
+    delay 2 ms                                          implemented 20220928                                          
+    SPI transfer 0x0F   // issue SDATAC to do the reset
+
+    delay 100 us
+
+    set  CS_pin  HIGH
+
+    SPI.endTransaction();
+
+ ... end of reset_ADS1256
+
+ userDefaultRegisters: 
+
+    delay 500 ms
+
+    write 0x00 to STATUS
+
+    delay 200 ms
+
+    write 0x01 to MUX for chnl 1
+
+    delay 200 ms
+
+    write 0x02 to ADCON
+
+    delay 200 ms
+
+    write 0x03 to DRATE
+ 
+    delay 500 ms
+
+    selfcal
+
+ ... end userDefaultRegisters
+
+ cycleSingleEnded():
+
+   set up array of mux register addresses                 HPADDAlibrary.c: 63
+
+   SPI.beginTransaction(SPISettings(1920000, MSBFIRST, SPI_MODE1));
+
+   loop over eight channels
+
+      wait for DRDY_pin to go LOW
+
+      set CS_pin LOW  
+
+      SPI transfer for MUX 
+      SPI transfer 0x00 (WAKEUP) ??
+
+      switch mux to next channel
+  
+      SPI transfer SYNC
+
+      delay 4 us
+
+      SPI transfer WAKEUP
+
+      SPI transfer RDATA
+
+      delay 5 us
+
+      initialize ADdata to  0x000000
+
+      read 8 low  order bits into ADdata
+      read 8 mid  order bits into ADdata
+      read 8 high order bits into ADdata
+
+ 
+ ... end setup

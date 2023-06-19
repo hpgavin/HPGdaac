@@ -1,0 +1,33 @@
+------------------------------------------------------------------------------
+Installation of software for Broadcom 2835 
+RPi General Purpose Input Output (GPIO) via Broadcom 2835
+------------------------------------------------------------------------------
+
+References: 
+-----------
+
+https://raspberrypi.stackexchange.com/questions/81757/why-and-when-to-use-rpi-gpio-vs-bcm2835
+
+http://www.spazztech.com/python-vs-c-on-rpi.html
+
+http://www.airspayce.com/mikem/bcm2835/
+
+Instructions: 
+-------------
+
+[1] download the most recent version of bcm2835-*.tar.gz ... e.g., 
+    http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz 
+     ... to ~/Code/Data-Aq/RPi-DataAq
+
+[2] tar zxvf bcm2835-1.73.tar.gz
+    cd bcm2835-1.73
+    ./configure
+    make
+    sudo make check
+    sudo make install
+    cd ..
+    rm -rf bcm2835-1.73
+
+------------------------------------------------------------------------------
+
+
