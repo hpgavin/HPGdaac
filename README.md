@@ -150,3 +150,10 @@ and when the test is complete
 ## HPGdaac Performance
 
 ... quantitative information to be added soon ...
+
+---------------------------------
+
+## HPGdaac for realtime feedback control
+
+... quantitative information to be added soon ...
+
