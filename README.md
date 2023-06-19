@@ -80,7 +80,7 @@ Example test configuration file:
 
 --------
 
-'
+```
   Geophone sensitivity
   Xlabel : "seconds"
   Ylabel : "volts"
@@ -96,7 +96,7 @@ Example test configuration file:
    5      "sensor 5"           5.432         "g"          3       3       0.1
    6      "sensor 6"           1.234         "g"          3       3       0.1
    7      "sensor 7"           5.678         "g"          3       3       0.1
-'
+```
 
 --------
 
