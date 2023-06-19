@@ -1,11 +1,12 @@
-#HPGdaac
+# HPGdaac
 
 High Performance Graphical data acquisition and control:
 A command-line interface between Raspberry Pi and the WaveShare High Performance Analog-Digital Digital-Analog hat for the Raspbery Pi.  
 
 ---------------------------------
-HPGdaac Installation 
----------------------------------
+
+## HPGdaac Installation 
+
 
 1. patch the RPi kernel with PREEMPT-RT 
     following instructions in ... PREEMPT-RT-install-log  
@@ -31,8 +32,9 @@ HPGdaac Installation
 
 
 ---------------------------------
-HPGdaac Usage
----------------------------------
+
+## HPGdaac Usage
+
 
 HPGdaac is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   HPGdaac is configured via a test configuration file and a sensor configuration file.   
 
@@ -42,7 +44,7 @@ After installation, HPGdaac is run from the command line using:
 HPGdaac <test configuration filename> <measured data filename> 
 ```
 
-Test configuration file
+### Test configuration file
 
 Uers may edit the first line (containing a descritive title) and the ninth line (summarizing sensor configurations) in their entirety.   Values following the colon (:) may be edited in all other lines.  
 
@@ -64,7 +66,7 @@ D/A 0 data file name                       : DA-files/chirp0.dat
 D/A 1 data file name                       : DA-files/chirp1.dat
 ```
 
-Sensor configuration file
+### Sensor configuration file
 
 Uers may edit the first line (containing a descriptive title) and the eight line and following lines (with detailed sensor configurations) in their entirety.   Values following the colon (:) may be edited in all other lines.  
 
@@ -114,17 +116,19 @@ Channel Label             Sensitivity   V/Unit          DeClip  Detrend Smooth
           4:   first_pt   - subtract the first point
           5:   peak_peak  - make the max equal to the negative of the min
 
- Smoothing level
+ Smoothing level value (a number between 0 and 1) 
 
            0     :  no smoothing
        0 <  < 1  : intermediate smoothing
            1     :  maximum smoothing
 
-------
+---------------
 
 After executing the command line ...
 
-%  HPGdaac <test configuration filename> <measured data filename> 
+```
+HPGdaac <test configuration filename> <measured data filename> 
+```
 
 ... HPGdaac configures the internal parameters of the HPADDA, opens a window for plotting the data in real time, and asks if the user is ready.  
 Pressing "[enter]" or "Y [enter]" intiates the test.   The measured data will be displayed to the screen, and when the test is complete
