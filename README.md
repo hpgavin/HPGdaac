@@ -70,16 +70,17 @@ Uers may edit the first line (containing a descriptive title) and the eight line
 
 Example test configuration file:
 
-The 'Channel' column corresponds to the pair of Channel positive and Channel negative pins in the Test Configuration file.  
-The 'Label'   column is a brief text description of the sensor.
-The 'Sensitivity' column is the numerical value of the volts-per-physical-unit of the sensor.  
-The 'V/Unit' column indicates the 'physical unit'
-The 'DeClip' column indicates how the scaling operation will deal with clipped data
-The 'Detrend' column indicates how the scaling operation will deal with biased or trending data
-The 'Smooth' column indicates how much the scaling operation will smooth the data
+ * The 'Channel' column corresponds to the pair of Channel positive and Channel negative pins in the Test Configuration file.  
+ * The 'Label'   column is a brief text description of the sensor.
+ * The 'Sensitivity' column is the numerical value of the volts-per-physical-unit of the sensor.  
+ * The 'V/Unit' column indicates the 'physical unit'
+ * The 'DeClip' column indicates how the scaling operation will deal with clipped data
+ * The 'Detrend' column indicates how the scaling operation will deal with biased or trending data
+ * The 'Smooth' column indicates how much the scaling operation will smooth the data
 
 --------
 
+'
   Geophone sensitivity
   Xlabel : "seconds"
   Ylabel : "volts"
@@ -95,6 +96,7 @@ The 'Smooth' column indicates how much the scaling operation will smooth the dat
    5      "sensor 5"           5.432         "g"          3       3       0.1
    6      "sensor 6"           1.234         "g"          3       3       0.1
    7      "sensor 7"           5.678         "g"          3       3       0.1
+'
 
 --------
 
