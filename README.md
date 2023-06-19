@@ -1,7 +1,10 @@
 # HPGdaac
 
 High Performance Graphical data acquisition and control:
-A command-line interface between Raspberry Pi and the WaveShare High Performance Analog-Digital Digital-Analog hat for the Raspbery Pi.  
+
+An open-source command-line interface between Raspberry Pi and the
+[WaveShare High Performance Analog-Digital Digital-Analog(https://www.waveshare.com/high-precision-ad-da-board.htm)
+hat for the Raspbery Pi.  
 
 ---------------------------------
 
@@ -19,7 +22,7 @@ A command-line interface between Raspberry Pi and the WaveShare High Performance
 sudo apt install libx11-xcb-dev
 ```
 
-4. clone software from github to your RPi, e.g., to ~/Code/
+4. clone software from github to your RPi, e.g., to your ~/Code/ directory
  
 ```
 mkdir ~/Code
