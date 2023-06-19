@@ -15,30 +15,37 @@ A command-line interface between Raspberry Pi and the WaveShare High Performance
     following instructions in ... bcm2835-software-install
 
 3. include the xcb development sources
-    sudo apt install libx11-xcb-dev
+```
+sudo apt install libx11-xcb-dev
+```
 
 4. clone software from github to your RPi, e.g., to ~/Code/
  
-    mkdir ~/Code
-    cd ~/Code
-    git clone https://github/hpgavin/HPGnumlib 
-    git clone https://github/hpgavin/HPGxcblib 
-    git clone https://github/hpgavin/HPGdaac  
+```
+mkdir ~/Code
+cd ~/Code
+git clone https://github/hpgavin/HPGnumlib 
+git clone https://github/hpgavin/HPGxcblib 
+git clone https://github/hpgavin/HPGdaac  
+```
 
-5. cd ~/Code/HPGdaac
-    make clean
-    make
-    sudo make install
+5. make and make install
 
+```
+cd ~/Code/HPGdaac
+make clean
+make
+sudo make install
+```
 
 ---------------------------------
 
 ## HPGdaac Usage
 
 
-HPGdaac is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   HPGdaac is configured via a test configuration file and a sensor configuration file.   
+**HPGdaac** is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
-After installation, HPGdaac is run from the command line using:
+After installation, **HPGdaac** is run from the command line using:
 
 ```
 HPGdaac <test configuration filename> <measured data filename> 
@@ -130,7 +137,7 @@ After executing the command line ...
 HPGdaac <test configuration filename> <measured data filename> 
 ```
 
-... HPGdaac configures the internal parameters of the HPADDA, opens a window for plotting the data in real time, and asks if the user is ready.  
+... **HPGdaac** configures the internal parameters of the HPADDA, opens a window for plotting the data in real time, and asks if the user is ready.  
 Pressing "[enter]" or "Y [enter]" intiates the test.   The measured data will be displayed to the screen, and when the test is complete
 HPGdaac will write the data to a measured data file, which is a plain text file in which the provided <measured data filename> is appended by a date-time stamp.   The user may then choose to delete or retain the data file.   
 
