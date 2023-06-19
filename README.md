@@ -157,3 +157,10 @@ and when the test is complete
 
 ... quantitative information to be added soon ...
 
+---------------------------------
+
+## Acknowledgements 
+
+* [WaveShsare](https://www.waveshare.com/)
+* [The Curious Scientist](https://www.youtube.com/c/CuriousScientist)
+* [HPADDAlibrary](https://github.com/shujima/HPADDAlibrary)
