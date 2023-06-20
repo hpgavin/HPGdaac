@@ -22,7 +22,7 @@ To configure the WaveShare HPADDA board for use with the **HPGdaac**,
 
 ---------------------------------
 
-## HPGdaac Installation 
+## Installation 
 
 1. patch the RPi kernel with PREEMPT-RT 
     following instructions in ... doc/PREEMPT-RT-install-log  
@@ -58,7 +58,7 @@ sudo make install
 
 ---------------------------------
 
-## HPGdaac Usage
+## Usage
 
 **HPGdaac** is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
@@ -159,13 +159,13 @@ and when the test is complete
 
 ---------------------------------
 
-## HPGdaac Performance
+## Performance
 
 ... quantitative information to be added soon ...
 
 ---------------------------------
 
-## HPGdaac for realtime feedback control
+## Realtime feedback control
 
 ... quantitative information to be added soon ...
 
