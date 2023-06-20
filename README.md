@@ -13,8 +13,10 @@ An open-source command-line interface between a Raspberry Pi and a
 To configure the WaveShare HPADDA board for use with the **HPGdaac**, on the 2x6 pin block, 
 * connect 'VCC' to '5V'
 * connect 'VREF' to '5V'
+
 on the 2x1 pin block
 * connect AGND to GND
+
 on the 1x13 screw terminal block, to help prevent accidentally shorting 'VCC' to a signal lead, 
 * mark the 'AGND' terminal with black ink
 * mark the 'VCC' terminal with red ink
