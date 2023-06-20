@@ -8,6 +8,19 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ---------------------------------
 
+## WaveShare High Performance Analog-Digital, Digital Analog board configuration
+
+To configure the WaveShare HPADDA board for use with the **HPGdaac**, on the 2x6 pin block, 
+* connect 'VCC' to '5V'
+* connect 'VREF' to '5V'
+on the 2x1 pin block
+* connect AGND to GND
+on the 1x13 screw terminal block, to help prevent accidentally shorting 'VCC' to a signal lead, 
+* mark the 'AGND' terminal with black ink
+* mark the 'VCC' terminal with red ink
+
+---------------------------------
+
 ## HPGdaac Installation 
 
 
@@ -17,13 +30,16 @@ An open-source command-line interface between a Raspberry Pi and a
 2. install GPIO driver source codes
     following instructions in ... doc/bcm2835-software-install
 
-3. include the xcb development sources
+3. install the xcb development sources
 ```
 sudo apt install libx11-xcb-dev
 ```
+4. install gnuplot for simple data plotting after the test
+```
+sudo apt install gnuplot
+```
 
-4. clone software from github to your RPi, e.g., to your ~/Code/ directory
- 
+5. clone software from github to your RPi, e.g., to your ~/Code/ directory
 ```
 mkdir ~/Code
 cd ~/Code
@@ -32,8 +48,7 @@ git clone https://github/hpgavin/HPGxcblib
 git clone https://github/hpgavin/HPGdaac  
 ```
 
-5. make and make install
-
+6. make and make install
 ```
 cd ~/Code/HPGdaac
 make clean
