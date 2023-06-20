@@ -2,9 +2,9 @@
 
 High Performance Graphical data acquisition and control:
 
-An open-source command-line interface between Raspberry Pi and the
+An open-source command-line interface between a Raspberry Pi and a
 [WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
-hat for the Raspbery Pi.  
+(24 bit, 8 channel, 30 kHz/chnl) hat for the Raspbery Pi.  
 
 ---------------------------------
 
