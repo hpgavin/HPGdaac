@@ -1,0 +1,6 @@
+[submodule "HPGxcblib"]
+	path = HPGxcblib
+	url = https://github.com/hpgavin/HPGxcblib
+[submodule "HPGnumlib"]
+	path = HPGnumlib
+	url = https://github.com/hpgavin/HPGnumlib
