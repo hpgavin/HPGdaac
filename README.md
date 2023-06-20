@@ -12,10 +12,10 @@ An open-source command-line interface between a Raspberry Pi and a
 
 
 1. patch the RPi kernel with PREEMPT-RT 
-    following instructions in ... PREEMPT-RT-install-log  
+    following instructions in ... doc/PREEMPT-RT-install-log  
 
 2. install GPIO driver source codes
-    following instructions in ... bcm2835-software-install
+    following instructions in ... doc/bcm2835-software-install
 
 3. include the xcb development sources
 ```
@@ -49,7 +49,6 @@ sudo make install
 **HPGdaac** is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
 After installation, **HPGdaac** is run from the command line using:
-
 ```
 HPGdaac <test configuration filename> <measured data filename> 
 ```
@@ -89,7 +88,6 @@ Example test configuration file:
  * The 'DeClip' column indicates how the scaling operation will deal with clipped data
  * The 'Detrend' column indicates how the scaling operation will deal with biased or trending data
  * The 'Smooth' column indicates how much the scaling operation will smooth the data
-
 
 ```
 Geophone sensitivity
