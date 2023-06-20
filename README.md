@@ -8,7 +8,7 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ---------------------------------
 
-## WaveShare High Performance Analog-Digital, Digital Analog board configuration
+## WaveShare High Performance Analog-Digital, Digital Analog hardware configuration
 
 To configure the WaveShare HPADDA board for use with the **HPGdaac**, on the 2x6 pin block, 
 * connect 'VCC' to '5V'
@@ -24,7 +24,6 @@ on the 1x13 screw terminal block, to help prevent accidentally shorting 'VCC' to
 ---------------------------------
 
 ## HPGdaac Installation 
-
 
 1. patch the RPi kernel with PREEMPT-RT 
     following instructions in ... doc/PREEMPT-RT-install-log  
@@ -61,7 +60,6 @@ sudo make install
 ---------------------------------
 
 ## HPGdaac Usage
-
 
 **HPGdaac** is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
