@@ -46,6 +46,7 @@ cd ~/Code
 git clone https://github/hpgavin/HPGnumlib 
 git clone https://github/hpgavin/HPGxcblib 
 git clone https://github/hpgavin/HPGdaac  
+git clone https://github/hpgavin/HPGdaac-xtra  
 ```
 
 6. make and make install
