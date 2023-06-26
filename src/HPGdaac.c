@@ -1,5 +1,5 @@
 /*******************************************************************************
-Program HPGdaac.c - High Precision Graphical Data Acquisition And Control
+Program HPGdaac.c - High Precision Graphing Data Acquisition And Control
 using WaveShare High-Precision AD/DA Board 
 https://www.waveshare.com/wiki/High-Precision_AD/DA_Board
 

@@ -1,6 +1,6 @@
 # HPGdaac
 
-High Performance Graphical data acquisition and control:
+High Performance Graphing data acquisition and control:
 
 An open-source command-line interface between a Raspberry Pi and a
 [WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
