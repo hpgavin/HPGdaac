@@ -1031,6 +1031,7 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
     if (write_shbang) {
       fprintf(fp,"# gnuplot script --- load 'plotall.sh'\n");
       fprintf(fp,"set term qt\n");
+      fprintf(fp,"set datastyle commentschars '#%'\n");
       fprintf(fp,"set xlabel 'sample number'\n");
       fprintf(fp,"set ylabel 'bit value'\n");
     }
