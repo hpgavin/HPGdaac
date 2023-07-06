@@ -160,7 +160,7 @@ Pressing "[enter]" or "Y [enter]" intiates the test.   Measured data is displaye
 and when the test is complete
 **HPGdaac** writes the data to the measured data file (a plain text file) in which the provided *measured data filename* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
 
-### Measured datafile header and format
+### Measured data file header and format
 
 Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
 
@@ -168,7 +168,7 @@ For example, running ...
 ```
 HPGdaac test.cfg  data123  
 ```
-... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a **raw** datafile which has the first 18 lines ...
+... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a **raw** data file which has a header of 12 lines ...
 
 ```
 % Tue  Mar 14 03:14:16 2023
@@ -201,12 +201,12 @@ HPGdaac test.cfg  data123
 * line 10-11: initial root mean square for each measured channel
 * line 12: header data for each measured channel
 
-The following space delimitted columns of data are in units of least significant bit (LSB).   
+The subsequent space delimitted columns of data are in units of least significant bit (LSB).   
 This is the most compact and precice way to store the data.   
 
 ### Scaling the measured data file to desired units
 
-The program **scale** uses the *sensor configuration file* to convert the measured data from units of LSB to the units specified in *sensor configuration file.*
+The program **scale** from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the measured data from units of LSB to the units specified in *sensor configuration file.*
 
 Usage ...
 ```
@@ -219,7 +219,7 @@ scale  snsrs.cfg  data123.20230314.031416  data123.20230314.031416.scl  dataStat
 ```
 ... with the snsrs.cfg being the  *sensor configuration file* shown above, 
 results in the named **scaled** data file (*data123.20230314.031416.scl*)
-which starts with the first 28 lines ...
+which has a header of 19 lines  ... 
 ```
 % Tue  Mar 14 03:14:16 2023
 % Title: data acquisition via HPGdaac
@@ -265,10 +265,10 @@ which starts with the first 28 lines ...
 * line 13: line 1 of the sensor configuration file
 * line 14: sensor voltage sensitivity of each channel
 * line 15-17: columns 5, 6, and 7 of the sensor configuration file 
-* line 19:  channel numbers for each column
-* line 20:  scaled units from column for of the sensor configuration file 
+* line 18:  channel numbers for each column
+* line 19:  scaled units from column for of the sensor configuration file 
 
-The following space delimitted columns of data are scaled to the units specified in the sensor configuration file. 
+The subsequent space delimitted columns of data are scaled to the units specified in the sensor configuration file. 
 The last lines of the scaled data file provide the maximum, minimum, and root mean square (RMS) in the scaled units. 
 
 In addition to scaling the raw data to the desired units, the **scale** corrects for channel-to-channel skew, 
