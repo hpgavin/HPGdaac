@@ -43,10 +43,10 @@ sudo apt install gnuplot
 ```
 mkdir ~/Code
 cd ~/Code
-git clone https://github/hpgavin/HPGnumlib 
-git clone https://github/hpgavin/HPGxcblib 
-git clone https://github/hpgavin/HPGdaac  
-git clone https://github/hpgavin/HPGdaac-xtra  
+git clone https://github.com/hpgavin/HPGnumlib 
+git clone https://github.com/hpgavin/HPGxcblib 
+git clone https://github.com/hpgavin/HPGdaac  
+git clone https://github.com/hpgavin/HPGdaac-xtra  
 ```
 
 6. make and make install
