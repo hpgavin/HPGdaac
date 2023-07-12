@@ -172,7 +172,7 @@ HPGdaac <test configuration filename> <digitized data filename>
 Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
 **HPGdaac** writes the data to the digitized data file (a plain text file) in which the provided *digitized data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
 
-### Measured data file header and format
+### Digitized data file header and format
 
 Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
 The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
