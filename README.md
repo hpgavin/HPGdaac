@@ -107,9 +107,9 @@ Since input-output tests are often of interest, the input to the system being te
 
 ### Sensor configuration file
 
-The *sensor configuration filename*  and the *digitized data filename* may not contain spaces.  
+The *sensor configuration filename*  may not contain spaces.  
 
-Users may edit the first line (containing a descriptive title) and the eighth line and following lines (with detailed sensor configurations) in their entirety.   In all other lines, users may edit the content following the colon (:).  
+Users may edit the first line (containing a descriptive title) and the eighth line and following lines in their entirety.   In all other lines, users may edit the content following the colon (:).  
 
 Example sensor configuration file:
 
@@ -182,7 +182,7 @@ For example, running ...
 ```
 HPGdaac test.cfg  data123  
 ```
-... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a **raw** data file with a header of 12 lines ...
+... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a *digitized data file* with a header of 12 lines ...
 
 ```
 % Tue  Mar 14 03:14:16 2023
@@ -224,9 +224,9 @@ The program **scale** from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPG
 
 Usage ...
 ```
-scale <sensor config filename> <raw data filename> <scaled data filename> <data stats filename> 
+scale <sensor configuration filename> <digitized data filename> <scaled data filename> <data stats filename> 
 ```
-The *sensor config filename*,  *raw data filename*,  *scaled data filename*, and the  *data stats filename*  may not contain spaces.  
+The *sensor configuration filename*,  *digitized data filename*,  *scaled data filename*, and the  *data stats filename*  may not contain spaces.  
  
 For example, running ...
 ```
@@ -275,7 +275,7 @@ with a header of 19 lines  ...
 
 ```
 
-* line 1-11: a copy of lines 1-11 of the raw data file
+* line 1-11: a copy of lines 1-11 from the digitized data file
 * line 12: the sensor configuration filename 
 * line 13: line 1 of the sensor configuration file
 * line 14: sensor voltage sensitivity of each channel
@@ -286,7 +286,7 @@ with a header of 19 lines  ...
 The subsequent space delimited columns of data are scaled to the units specified in the sensor configuration file. 
 The last lines of the scaled data file provide the maximum, minimum, and root mean square (RMS) in the scaled units. 
 
-In addition to scaling the raw data to the desired units, the **scale** program corrects for channel-to-channel skew, 
+In addition to scaling the digitized data to the desired units, the **scale** program corrects for channel-to-channel skew, 
 and optionally interpolates clipped data, applies some smoothing, and detrends the data.   
 
 **scale** appends the *data stats file* with the summary of the maximum, minimum, and root mean square (RMS) of the scaled data.  
