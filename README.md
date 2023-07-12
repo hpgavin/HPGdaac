@@ -10,7 +10,7 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
 
-To configure the WaveShare HPADDA board for use with the **HPGdaac**, 
+To configure the WaveShare HPADDA board for use with **HPGdaac**, 
 * on the 2x6 pin block, 
   * connect 'VCC' to '5V'
   * connect 'VREF' to '5V'
