@@ -65,9 +65,9 @@ sudo make install
 
 After installation, **HPGdaac** is run from the command-line using:
 ```
-HPGdaac <test configuration filename> <measured data filename>  
+HPGdaac <test configuration filename> <digitized data filename>  
 ```
-The <test configuration filename>  and the <measured data filename> may not contain spaces.  
+The *test configuration filename* and the *digitized data filename* may not contain spaces.  
 
 ### Test configuration file
 
@@ -107,7 +107,7 @@ Since input-output tests are often of interest, the input to the system being te
 
 ### Sensor configuration file
 
-The <sensor configuration filename>  and the <measured data filename> may not contain spaces.  
+The *sensor configuration filename*  and the *digitized data filename* may not contain spaces.  
 
 Users may edit the first line (containing a descriptive title) and the eighth line and following lines (with detailed sensor configurations) in their entirety.   In all other lines, users may edit the content following the colon (:).  
 
@@ -166,11 +166,11 @@ Channel Label             Sensitivity   V/Unit          DeClip  Detrend Smooth
 
 After executing the command line ...
 ```
-HPGdaac <test configuration filename> <measured data filename> 
+HPGdaac <test configuration filename> <digitized data filename> 
 ```
 ... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the data in real time, and asks if the user is ready.  
-Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displayed to the screen the instant it is measured.  When the test is complete
-**HPGdaac** writes the data to the measured data file (a plain text file) in which the provided *measured data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
+Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
+**HPGdaac** writes the data to the digitized data file (a plain text file) in which the provided *digitized data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
 
 ### Measured data file header and format
 
@@ -218,15 +218,15 @@ HPGdaac test.cfg  data123
 The subsequent space delimited columns of data are in units of least significant bit (LSB).   
 This is the most compact and precise way to represent the digitized data.   
 
-### Scaling the measured data file to desired units
+### Scaling the digitized data file to desired units
 
-The program **scale** from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the measured data from units of LSB to the units specified in *sensor configuration file.*
+The program **scale** from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the digitized data from units of LSB to the units specified in *sensor configuration file.*
 
 Usage ...
 ```
 scale <sensor config filename> <raw data filename> <scaled data filename> <data stats filename> 
 ```
-The <sensor config filename>,  <raw data filename>,  <scaled data filename>, and the  <data stats filename>  may not contain spaces.  
+The *sensor config filename*,  *raw data filename*,  *scaled data filename*, and the  *data stats filename*  may not contain spaces.  
  
 For example, running ...
 ```
