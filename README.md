@@ -8,7 +8,7 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ---------------------------------
 
-## WaveShare High Performance Analog-Digital, Digital-Analog hardware configuration
+## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
 
 To configure the WaveShare HPADDA board for use with the **HPGdaac**, 
 * on the 2x6 pin block, 
