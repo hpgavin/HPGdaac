@@ -67,7 +67,7 @@ After installation, **HPGdaac** is run from the command-line using:
 ```
 HPGdaac <test configuration filename> <measured data filename>  
 ```
-The *<test configuration filename>*  and the *<measured data filename>* may not contain spaces.  
+The <test configuration filename>  and the <measured data filename> may not contain spaces.  
 
 ### Test configuration file
 
@@ -103,11 +103,12 @@ Sensor sensitivities for each channel are specified in the file snsrs.cfg (see b
 
 Since realtime calculations often involve user-specified constants, (like a feedback gain, for example) values for up to 16 constants may be specified.  See documentation in the Realtime Feedback Control section, below.  
 
-Since input-output measurements are often of interests, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of 2<sup>16</sup>-1 (65535) corresponds to an output voltage of +5 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) github repository.  These programs generate files for D-to-A integer data values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
+Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
 
 ### Sensor configuration file
 
-The *<sensor configuration filename>*  and the *<measured data filename>* may not contain spaces.  
+The <sensor configuration filename>  and the <measured data filename> may not contain spaces.  
+
 Users may edit the first line (containing a descriptive title) and the eighth line and following lines (with detailed sensor configurations) in their entirety.   In all other lines, users may edit the content following the colon (:).  
 
 Example sensor configuration file:
@@ -175,7 +176,7 @@ Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displa
 
 Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
 The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
-A voltage value of 0 corresponds to an digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of   2<sup>23</sup>-1 (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
+A voltage value of 0 corresponds to an digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of (2<sup>23</sup>-1) (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
 
 For example, running ...
 ```
@@ -225,7 +226,7 @@ Usage ...
 ```
 scale <sensor config filename> <raw data filename> <scaled data filename> <data stats filename> 
 ```
-The *<sensor config filename>*,  *<raw data filename>*,  *<scaled data filename>*, and the  *<data stats filename>*  may not contain spaces.  
+The <sensor config filename>,  <raw data filename>,  <scaled data filename>, and the  <data stats filename>  may not contain spaces.  
  
 For example, running ...
 ```
