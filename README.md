@@ -103,7 +103,7 @@ Sensor sensitivities for each channel are specified in the file snsrs.cfg (see b
 
 Since realtime calculations often involve user-specified constants, (like a feedback gain, for example) values for up to 16 constants may be specified.  See documentation in the Realtime Feedback Control section, below.  
 
-Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
+Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
 
 ### Sensor configuration file
 
@@ -220,7 +220,7 @@ This is the most compact and precise way to represent the digitized data.
 
 ### Scaling the digitized data file to desired units
 
-The program **scale** from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the digitized data from units of LSB to the units specified in *sensor configuration file.*
+The program **scale** from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the digitized data from units of LSB to the units specified in *sensor configuration file.*
 
 Usage ...
 ```
