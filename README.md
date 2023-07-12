@@ -119,7 +119,7 @@ Example sensor configuration file:
  * The 'V/Unit' column indicates the 'physical unit'
  * The 'DeClip' column indicates how the scaling operation will deal with clipped data
  * The 'Detrend' column indicates how the scaling operation will deal with biased or trending data
- * The 'Smooth' column indicates how much the scaling operation will smooth the data
+ * The 'Smooth' column indicates how much the scaling operation will smooth the digitized data
 
 ```
 A template sensor configuration file for HPGdaac
@@ -151,7 +151,7 @@ Channel Label             Sensitivity   V/Unit          DeClip  Detrend Smooth
 
           0:   none       - no detrending
           1:   debias     - subtract the average value of each time series
-          2:   detrend    - subtract the ordinary least squares straight line through the data
+          2:   detrend    - subtract the ordinary least squares straight line through the digitized data
           3:   baseline   - subtract a line passing through the fist point and the last point
           4:   first_pt   - subtract the first point
           5:   peak_peak  - make the max equal to the negative of the min
@@ -168,9 +168,9 @@ After executing the command line ...
 ```
 HPGdaac <test configuration filename> <digitized data filename> 
 ```
-... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the data in real time, and asks if the user is ready.  
+... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
 Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
-**HPGdaac** writes the data to the digitized data file (a plain text file) in which the provided *digitized data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
+**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided *digitized data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the digitized data file.   
 
 ### Digitized data file header and format
 
@@ -207,7 +207,7 @@ HPGdaac test.cfg  data123
 
 * line 1: date-time 
 * line 2: line 1 of the test configuration file
-* line 3: the data filename (with the time stamp) and the configuration filename
+* line 3: the digitized data filename (with the time stamp) and the configuration filename
 * line 4: the number of channel scans, number of channels, scan rate, and collection duration
 * line 5: line 9 of the test configuration file
 * line 6-7: actual voltage ranges from the test configuration file for each measured channel
@@ -232,7 +232,7 @@ For example, running ...
 ```
 scale  snsrs.cfg  data123.20230314.031416  data123.20230314.031416.scl  dataStats 
 ```
-... with the snsrs.cfg being the  *<sensor configuration filename>* shown above, 
+... with the snsrs.cfg being the  *sensor configuration filename* shown above, 
 results in the named **scaled** data file (*data123.20230314.031416.scl*)
 with a header of 19 lines  ... 
 ```
@@ -287,7 +287,7 @@ The subsequent space delimited columns of data are scaled to the units specified
 The last lines of the scaled data file provide the maximum, minimum, and root mean square (RMS) in the scaled units. 
 
 In addition to scaling the digitized data to the desired units, the **scale** program corrects for channel-to-channel skew, 
-and optionally interpolates clipped data, applies some smoothing, and detrends the data.   
+and optionally interpolates clipped data, applies some smoothing, and detrends the digitized data.   
 
 **scale** appends the *data stats file* with the summary of the maximum, minimum, and root mean square (RMS) of the scaled data.  
 
