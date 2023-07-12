@@ -8,7 +8,7 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ---------------------------------
 
-## WaveShare High Performance Analog-Digital, Digital Analog hardware configuration
+## WaveShare High Performance Analog-Digital, Digital-Analog hardware configuration
 
 To configure the WaveShare HPADDA board for use with the **HPGdaac**, 
 * on the 2x6 pin block, 
@@ -61,16 +61,18 @@ sudo make install
 
 ## Usage
 
-**HPGdaac** is a command line program for digitizing analog signals while simultaneously sending analog outputs and potentiall performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
+**HPGdaac** is a command-line program for digitizing analog signals while simultaneously sending analog outputs and potentially performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
-After installation, **HPGdaac** is run from the command line using:
+After installation, **HPGdaac** is run from the command-line using:
 ```
-HPGdaac <test configuration filename> <measured data filename> 
+HPGdaac <test configuration filename> <measured data filename>  
 ```
+The *<test configuration filename>*  and the *<measured data filename>* may not contain spaces.  
 
 ### Test configuration file
 
-Uers may edit the first line (containing a descritive title) and the ninth line (summarizing sensor configurations) in their entirety.   Values following the colon (:) may be edited in all other lines.  
+Uers may edit the first line (containing a descritive title) and the ninth line (summarizing sensor configurations) in their entirety.   In all other lines,
+users may edit text following the colon (:). 
 
 Example test configuration file:
 
@@ -84,15 +86,29 @@ Channel Positive Pin [0 to 7]              :   0   2   2   3   4   5   6   7
 Channel Negative Pin [0 to 7] or -1        :   1   3  -1  -1  -1  -1  -1  -1
 Voltage Range [0.05 to 5.00] (volts)       : 2.5 1.2 5.0 5.0 5.0 5.0 5.0 5.0
 ch0: voltage input Vi   ch1: sensor output Vo
-Sensor Configuration File Name             : snsrs.cfg
+Sensor Configuration filename              : snsrs.cfg
 Number of Control Constants                : 0
-D/A 0 data file name                       : DA-files/chirp0.dat
-D/A 1 data file name                       : DA-files/chirp1.dat
+D/A 0 data filename                        : DA-files/chirp0.dat
+D/A 1 data filename                        : DA-files/chirp1.dat
 ```
+With  with this test configuration **HPGdaac** will collect data for 33 seconds, scanning the set of specified channels 200 times each second, and converting each channel voltage to digital in 0.5 micoroseconds (2000 conversions per second). 
+
+**HPGdaac** will scan two channels. *Channel 0* measures the voltage differene (*V*<sub>0</sub> - *V*<sub>1</sub>) between pin 0 (positive) and pin 1 (negative) and *Channel 1* measures the voltage difference(*V*<sub>2</sub> - *V*<sub>3</sub>)  between pin 2 (positive) and pin 3 (negative).  
+
+The "-1" for a pin indicates analog ground.  
+ 
+*Channel 0* will meausre voltage differences in the range of -2.5 to +2.5 volts.  
+*Channel 1* will meausre voltage differences in the range of -1.2 to +1.2 volts.  
+Sensor sensitivities for each channel are specified in the file snsrs.cfg (see bbelow).  
+
+Since realtime calculations often involve user-specified constants, (like a feedback gain, for example) values for up to 16 constansts may be specified.  See documentation in the Realtime Feedback Control section, below.  
+
+Since input-output measurements are often of interests, the input to the system being tested may be specifed in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponse to an output voltage of 0 and a digital value of 2<sup>16</sup>-1 (65535) corresponds to an output voltage of +5 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussean noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.org/hpgavin/HPGdaac-xtra) Github repository.  These programs generate files for D-to-A integer data values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
 
 ### Sensor configuration file
 
-Uers may edit the first line (containing a descriptive title) and the eight line and following lines (with detailed sensor configurations) in their entirety.   Values following the colon (:) may be edited in all other lines.  
+The *<sensor configuration filename>*  and the *<measured data filename>* may not contain spaces.  
+Uers may edit the first line (containing a descriptive title) and the eighth line and following lines (with detailed sensor configurations) in their entirety.   In all other lines, users may edit the content following the colon (:).  
 
 Example sensor configuration file:
 
@@ -148,27 +164,24 @@ Channel Label             Sensitivity   V/Unit          DeClip  Detrend Smooth
 ---------------
 
 After executing the command line ...
-
 ```
 HPGdaac <test configuration filename> <measured data filename> 
 ```
-
-
-
-... **HPGdaac** configures the internal parameters of the HPADDA, opens a window for plotting the data in real time, and asks if the user is ready.  
-Pressing "[enter]" or "Y [enter]" intiates the test.   Measured data is displayed to the screen the instant it is measured,
-and when the test is complete
-**HPGdaac** writes the data to the measured data file (a plain text file) in which the provided *measured data filename* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
+... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the data in real time, and asks if the user is ready.  
+Pressing "[enter]" or "Y [enter]" intiates the test.   Digitized data is displayed to the screen the instant it is measured.  When the test is complete
+**HPGdaac** writes the data to the measured data file (a plain text file) in which the provided *<measured data filename>* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the data file.   
 
 ### Measured data file header and format
 
 Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
+The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
+A voltage value of 0 corresponse to an digital value of 0 and a voltage value ofequal to the measurement range  corresponse to a digital value of   2<sup>23</sup>-1 (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
 
 For example, running ...
 ```
 HPGdaac test.cfg  data123  
 ```
-... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a **raw** data file which has a header of 12 lines ...
+... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a **raw** data file with a header of 12 lines ...
 
 ```
 % Tue  Mar 14 03:14:16 2023
@@ -193,16 +206,16 @@ HPGdaac test.cfg  data123
 
 * line 1: date-time 
 * line 2: line 1 of the test configuration file
-* line 3: the data file name (with the time stamp) and the configuration file
-* line 4: the number of channel scans, scan rate, and collection duration
+* line 3: the data filename (with the time stamp) and the configuration file
+* line 4: the number of channel scans, number of channels, scan rate, and collection duration
 * line 5: line 9 of the test configuration file
-* line 6-7: volage ranges from the test configuration file for each measured channel
-* line 8-9: initial offest for each measured channel
-* line 10-11: initial root mean square for each measured channel
+* line 6-7: actual voltage ranges from the test configuration file for each measured channel
+* line 8-9: initial offest for each measured channel, averaged over 1 second, in LSB's
+* line 10-11: initial root mean square for each measured channel, in LSB's 
 * line 12: header data for each measured channel
 
 The subsequent space delimitted columns of data are in units of least significant bit (LSB).   
-This is the most compact and precice way to store the data.   
+This is the most compact and precice way to represent the digitized data.   
 
 ### Scaling the measured data file to desired units
 
@@ -219,7 +232,7 @@ scale  snsrs.cfg  data123.20230314.031416  data123.20230314.031416.scl  dataStat
 ```
 ... with the snsrs.cfg being the  *sensor configuration file* shown above, 
 results in the named **scaled** data file (*data123.20230314.031416.scl*)
-which has a header of 19 lines  ... 
+with a header of 19 lines  ... 
 ```
 % Tue  Mar 14 03:14:16 2023
 % Title: data acquisition via HPGdaac
@@ -232,7 +245,7 @@ which has a header of 19 lines  ...
 %     -564    125294
 % pre-test sample rms
 %       54        92
-% sensor configuration file name: snsrs.cfg
+% sensor configuration filename: snsrs.cfg
 % A template sensor configuration file for HPGdaac
 % sensitivity: 1.00000000e+00   1.00000000e+00
 % clip-corr. :  0                0
@@ -261,7 +274,7 @@ which has a header of 19 lines  ...
 ```
 
 * line 1-11: a copy of lines 1-11 of the raw data file
-* line 12: the sensor configuration file name 
+* line 12: the sensor configuration filename 
 * line 13: line 1 of the sensor configuration file
 * line 14: sensor voltage sensitivity of each channel
 * line 15-17: columns 5, 6, and 7 of the sensor configuration file 
