@@ -2,8 +2,8 @@
 #	                                                                    #
 #	Makefile for building: HPGdaac                                      #
 #                                                                           #
-#	high performance graphical data acquisition and cotrol              #
-#	using	High-Precision Graphical Digital and Digital to Analog      #
+#	High Performance Graphical data acquisition and cotrol              #
+#	using	the WaveShare HPADDA on a Raspberry Pi                      #
 #                                                                           #
 # ========================================================================= #
 
@@ -35,7 +35,7 @@ $(DIR_O)/%.o : $(DIR_C)/%.c
 	$(CC) $(CFLAGS) -c  $< -o   $@  
 
 $(TARGET) : $(DIR_O)/HPGdaac.o $(DIR_O)/HPGutil.o $(DIR_O)/NRutil.o $(DIR_O)/HPGxcb.o $(DIR_O)/HPADDAlib.o $(DIR_O)/HPGcontrol.o
-	$(CC) $(CFLAGS) $^ -o $@  $(LFLAGS)
+	$(CC) $(CFLAGS)  $^ -o   $@  $(LFLAGS)
 
 install:
 	chown root $(TARGET); chmod u+s $(TARGET); mv $(TARGET) /usr/local/bin/.
