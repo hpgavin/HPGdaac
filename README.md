@@ -24,22 +24,7 @@ To configure the WaveShare HPADDA board for use with **HPGdaac**,
 
 ## Installation 
 
-1. patch the RPi kernel with PREEMPT-RT 
-    following instructions in ... doc/PREEMPT-RT-install-log  
-
-2. install GPIO driver source codes
-    following instructions in ... doc/bcm2835-software-install
-
-3. install the xcb development sources
-```
-sudo apt install libx11-xcb-dev
-```
-4. install gnuplot for simple data plotting after the test
-```
-sudo apt install gnuplot
-```
-
-5. clone software from github to your RPi, e.g., to your ~/Code/ directory
+1. clone software from github to your RPi, e.g., to your ~/Code/ directory
 ```
 mkdir ~/Code
 cd ~/Code
@@ -47,6 +32,21 @@ git clone https://github.com/hpgavin/HPGnumlib
 git clone https://github.com/hpgavin/HPGxcblib 
 git clone https://github.com/hpgavin/HPGdaac  
 git clone https://github.com/hpgavin/HPGdaac-xtra  
+```
+
+2. patch the RPi kernel with PREEMPT-RT 
+    following instructions in ... doc/PREEMPT-RT-install-log  
+
+3. install GPIO driver source codes
+    following instructions in ... doc/bcm2835-software-install
+
+4. install the xcb development sources
+```
+sudo apt install libx11-xcb-dev
+```
+5. install gnuplot for simple data plotting after the test
+```
+sudo apt install gnuplot
 ```
 
 6. make and make install
