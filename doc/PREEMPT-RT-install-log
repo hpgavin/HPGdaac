@@ -17,7 +17,7 @@
 
 uname -a
 
-  The versions used to build a new RT kernel today, 2023-08-25, are
+  The versions used to build a new RT kernel today, 2023-08-31, are
 
   * xubuntu 22.04.3 on a Dell desktop: kernel version   5.15.0-78-generic x86-64
 
@@ -30,7 +30,31 @@ uname -a
     https://cdn.kernel.org/pub/linux/kernel/projects/rt/5.15/
 
 >>
-<< 1.  Install tools required for cross-compiling the kernel 
+<< 1.  Update RPi OS on your RPi 4  (if needed) 
+
+if needed, backup your user data from your Raspberry Pi filesystem 
+
+Download the version of Raspberry Pi OS that matches your desktop installation
+to SD card via the Raspberry Pi SD card imager app from ...   
+https://www.raspberrypi.com/software/ 
+  sudo apt install rpi-imager
+Requires a new (?) SD card and a SD card reader. 
+This is easier on a windows computer since many SD card readers are not supported in ubuntu
+
+ https://www.raspberrypi.com/software/
+
+start RaspberryPiImager
+select RASPBERRY PI OS (32-bit)
+config: enable SSH
+
+Boot Raspberry Pi with new SD card and check the kernel version
+
+uname -a
+
+ ... Linux hpg-rpi01 5.15.76-v7l+ #1597 SMP Fri Nov 4 12:14:58 GMT 2022 armv7l GNU/Linux
+
+>>
+<< 2.  Install tools required for cross-compiling the kernel 
 
    https://www.raspberrypi.com/documentation/computers/linux_kernel.html
    https://wiki.linuxfoundation.org/realtime/documentation/howto/applications/preemptrt_setup
@@ -46,7 +70,7 @@ sudo apt install crossbuild-essential-armhf
 
 
 >>
-<< 2.  Find and download the raspberry pi kernel and the preempt_rt patch matching your ubuntu kernel 
+<< 3.  Find and download the raspberry pi kernel and the preempt_rt patch matching your ubuntu kernel 
 
   ...  kernel version 5.15 on 2022-12-02
 
@@ -62,7 +86,7 @@ sudo apt install crossbuild-essential-armhf
 ##  ... not found
 
 >>
-<< 3.  Unzip the raspberry pi kernel sources and patch the kernel with the preempt_rt patch 
+<< 4.  Unzip the raspberry pi kernel sources and patch the kernel with the preempt_rt patch 
  
 mkdir rpi-5.15-rt
 cd rpi-5.15-rt
@@ -81,7 +105,7 @@ head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
 xzcat ../patch-5.15.79-rt54.patch.xz | patch -p1
 
 >>
-<< 4.  Configure the patched kernel for RPi 4B
+<< 5.  Configure the patched kernel for RPi 4B
 
    https://www.raspberrypi.com/documentation/computers/linux_kernel.html#configuring-the-kernel
    https://lemariva.com/blog/2018/07/raspberry-pi-preempt-rt-patching-tutorial-for-kernel-4-14-y
@@ -128,7 +152,7 @@ make ARCH=arm CROSS_COMPILE=arm-linux-gnueabihf- menuconfig
 
 
 >>
-<< 5.  Build the patched kernel for RPi 4B 
+<< 6.  Build the patched kernel for RPi 4B 
 
    https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test
    https://lemariva.com/blog/2018/07/raspberry-pi-preempt-rt-patching-tutorial-for-kernel-4-14-y
@@ -168,30 +192,6 @@ cp arch/arm/boot/dts/*.dtb $INSTALL_MOD_PATH/boot/.
 cp arch/arm/boot/dts/overlays/*.dtb* $INSTALL_MOD_PATH/boot/overlays/.
 cp arch/arm/boot/dts/overlays/README $INSTALL_MOD_PATH/boot/overlays/.
 
-
->>
-<< 6.  Update RPi OS on your RPi 4  (if needed) 
-
-if needed, backup your user data from your Raspberry Pi filesystem 
-
-Download the version of Raspberry Pi OS that matches your desktop installation
-to SD card via the Raspberry Pi SD card imager app from ...   
-https://www.raspberrypi.com/software/ 
-  sudo apt install rpi-imager
-Requires a new (?) SD card and a SD card reader. 
-This is easier on a windows computer since many SD card readers are not supported in ubuntu
-
- https://www.raspberrypi.com/software/
-
-start RaspberryPiImager
-select RASPBERRY PI OS (32-bit)
-config: enable SSH
-
-Boot Raspberry Pi with new SD card and check the kernel version
-
-uname -a
-
- ... Linux hpg-rpi01 5.15.76-v7l+ #1597 SMP Fri Nov 4 12:14:58 GMT 2022 armv7l GNU/Linux
 
 >>
 << 7.  Tar and transfer the patched kernel to your Raspberry RPi 4B 
