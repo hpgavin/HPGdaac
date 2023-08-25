@@ -19,15 +19,16 @@ uname -a
 
   The versions used to build a new RT kernel today, 2023-08-31, are
 
-  * xubuntu 22.04.3 on a Dell desktop: kernel version   5.15.0-78-generic x86-64
+  * desktop
+    Linux pully 6.2.0-27-generic #28-Ubuntu SMP PREEMPT_DYNAMIC Wed Jul 12 22:39:51 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 
-  * raspberry pi OS on RPi 4B     : kernel version   5.15.92-???
+  * raspberry pi OS on RPi 4B     : kernel version   6.1.???
     https://github.com/raspberrypi/linux
-    https://github.com/raspberrypi/linux/tree/rpi-5.15.y
+    https://github.com/raspberrypi/linux/tree/rpi-6.1.y
 
-  * PREEMPT_RT patch            : patch version    5.15.125-rt66 
+  * PREEMPT_RT patch            : patch version    6.1.
     https://wiki.linuxfoundation.org/realtime/preempt_rt_versions 
-    https://cdn.kernel.org/pub/linux/kernel/projects/rt/5.15/
+    https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/
 
 >>
 << 1.  Update RPi OS on your RPi 4  (if needed) 
@@ -51,7 +52,7 @@ Boot Raspberry Pi with new SD card and check the kernel version
 
 uname -a
 
- ... Linux hpg-rpi01 5.15.76-v7l+ #1597 SMP Fri Nov 4 12:14:58 GMT 2022 armv7l GNU/Linux
+!!! ... Linux hpg-rpi01 5.15.76-v7l+ #1597 SMP Fri Nov 4 12:14:58 GMT 2022 armv7l GNU/Linux
 
 >>
 << 2.  Install tools required for cross-compiling the kernel 
@@ -68,17 +69,16 @@ sudo apt install gcc-arm-linux-gnueabihf
 sudo apt install binutils-doc gcc-11-locales cpp-doc gcc-11-doc autoconf automake libtool gcc-doc 
 sudo apt install crossbuild-essential-armhf
 
-
 >>
 << 3.  Find and download the raspberry pi kernel and the preempt_rt patch matching your ubuntu kernel 
 
-  ...  kernel version 5.15 on 2022-12-02
+  ...  kernel version 6.2 on 2023-09-25
 
   from https://wiki.linuxfoundation.org/realtime/preempt_rt_versions 
-  download  patches-5.15.79-rt54.xz
+  download  patch-6.1.46-rt13.patch.xz https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/
 
   from https://github.com/raspberrypi/linux
-  wget https://github.com/raspberrypi/linux/archive/refs/heads/rpi-5.15.y.zip
+  wget https://github.com/raspberrypi/linux/archive/refs/heads/rpi-6.1.y.zip
   ... or ... Code > Download ZIP  ... 
 
 ##  not found ... 
@@ -88,21 +88,21 @@ sudo apt install crossbuild-essential-armhf
 >>
 << 4.  Unzip the raspberry pi kernel sources and patch the kernel with the preempt_rt patch 
  
-mkdir rpi-5.15-rt
-cd rpi-5.15-rt
-mv ~/Downloads/patch-5.15.79-rt54.patch.xz .
-pwd # ~/Code/Data-Aq/RPi-DataAq/rpi-5.15-rt
-unzip -u linux-rpi-5.15.y.zip
-cd linux-rpi-5.15.y
+mkdir ~/Code
+cd ~/Code
+mv ~/Downloads/patch-6.1.46-rt13.patch.xz ~/Code/. 
+Mv linux-rpi-6.1.y.zip ~/Code/.
+unzip -u linux-rpi-6.1.y.zip
+cd linux-rpi-6.1.y
 
 head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
 
    # SPDX-License-Identifier: GPL-2.0
-   VERSION = 5
-   PATCHLEVEL = 15
-   SUBLEVEL = 80
+   VERSION = 6
+   PATCHLEVEL = 1
+   SUBLEVEL = 47
 
-xzcat ../patch-5.15.79-rt54.patch.xz | patch -p1
+xzcat ../patch-6.1.46-rt13.patch.xz  | patch -p1
 
 >>
 << 5.  Configure the patched kernel for RPi 4B
@@ -112,7 +112,7 @@ xzcat ../patch-5.15.79-rt54.patch.xz | patch -p1
    https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiling-the-kernel
    https://robskelly.com/2020/10/14/raspberry-pi-4-with-64-bit-os-and-preempt_rt/
 
-cd  ... / ... / rpi-5.15-rt/linux-rpi-5.15.y 
+cd  ... / ... / linux-rpi-6.1.y 
 
 export KERNEL=kernel7l
 
@@ -120,9 +120,9 @@ export ARCH=arm
 
 export CROSS_COMPILE=arm-linux-gnueabihf-
 
-export INSTALL_MOD_PATH=$PWD/rpi-5.15-rt
+export INSTALL_MOD_PATH=$PWD/rpi-6.1-rt
 
-export INSTALL_DTBS_PATH=$PWD/rpi-5.15-rt
+export INSTALL_DTBS_PATH=$PWD/rpi-6.1-rt
 
 # Apply the Default Configuration 
 
