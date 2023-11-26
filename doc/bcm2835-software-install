@@ -16,8 +16,8 @@ Instructions:
 -------------
 
 [1] download the most recent version of bcm2835-*.tar.gz ... e.g., 
-    http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz 
-     ... to ~/Code/Data-Aq/RPi-DataAq
+    wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz 
+     ... to ~/Code/
 
 [2] tar zxvf bcm2835-1.73.tar.gz
     cd bcm2835-1.73

@@ -100,7 +100,6 @@ uint32_t   smpl = 0,        // current sample number
 #if GRAPHICS
   float    xu=0, xo=0,             // x axis unit, place, offsets
            yu=0, yo=0;             // y axis unit, place, offsets
-  static uint32_t AXIS_COLR[2] = {0xecdc6e, 0x0};  // empacher
   static uint32_t CHNL_COLR[8] = {0xacbca2, 0xfc0202, 0xfc4102, 0xeffc02, 0x30fc02, 0x02fcdf, 0x0217fc, 0xf402fc};  // bruel+kjaer
 #endif // GRAPHICS
 
@@ -1031,9 +1030,9 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
     if (write_shbang) {
       fprintf(fp,"# gnuplot script --- load 'plotall.sh'\n");
       fprintf(fp,"set term qt\n");
-      fprintf(fp,"set datastyle commentschars '#%'\n");
-      fprintf(fp,"set xlabel 'sample number'\n");
-      fprintf(fp,"set ylabel 'bit value'\n");
+      fprintf(fp,"set datastyle commentschars '#%%'  \n");
+      fprintf(fp,"set xlabel 'sample number' \n");
+      fprintf(fp,"set ylabel 'bit value' \n");
     }
     fprintf(fp,"\n\nset autoscale\n");
       fprintf(fp,"set title '%s' \n", adDataFilename );
@@ -1120,9 +1119,12 @@ void plot_setup ( float *xunit,  float *yunit, float *xo, float *yo,
   xcb_segment_t        ll[] = { {0,0 , 0,0} };
   xcb_generic_event_t *event;
 
-  uint32_t  gc_mask = 0;                // graphic context mask
-  uint32_t  gc_value[2]  = { 0 , 0 };   // graphic context values
-  uint32_t  fgc = 0xffff, bgc = 0x0000; // foreground and background color
+  uint32_t  gc_mask = 0;                  // graphic context mask
+  uint32_t  gc_value[2]  = { 0 , 0 };     // graphic context values
+  uint32_t  textClr = 0xecddc6e;          // text and background color
+  uint32_t  axisClr[2] = {0x73c4ba, 0x0}; // axis line color  
+  // empacher    0xecdc6e
+  // bruel+kjaer 0x73c4ba
 
    if ( chnl[0].negPin >= 0 ) ymin = -1.0;  // differential inputs
 
@@ -1140,7 +1142,7 @@ void plot_setup ( float *xunit,  float *yunit, float *xo, float *yo,
   dx = (int16_t)( MAX ( SCREEN_W - *xo , *xo - XB )/10.0 ); // x-hatch increment
   dy = (int16_t)( MAX ( SCREEN_H - *yo , *yo - YB )/ 5.0 ); // y-hatch increment
 
-/*------------------------------------------ 
+/* ------------------------------------------ 
 //  check values for setting up the graph
 printf("----------------------------\n");
 printf(" SCREEN_W = %d \n", SCREEN_W);
@@ -1161,7 +1163,7 @@ printf(" title = %s \n", title);
 printf(" x-axis label: %s \n", Xlabel );
 printf(" y-axis label: %s \n", Ylabel );
 printf("----------------------------\n\n");
-*/
+ ------------------------------------------ */
 
   // initialize XCB
 
@@ -1214,12 +1216,13 @@ printf("----------------------------\n\n");
         title);
    xcb_flush (connection);
 
-  // wait for an "event" and capture it
+  // wait (twice ??) for an "event" and capture it
+  event = xcb_wait_for_event (connection);
   event = xcb_wait_for_event (connection);
 
   // change the graphic context for line colors
   gc_mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND ;
-  xcb_change_gc  (connection, foreground, gc_mask, AXIS_COLR);
+  xcb_change_gc  (connection, foreground, gc_mask, axisClr );
 
   // x-axis coordinate line 
   ll->x1 =  XB;
@@ -1248,7 +1251,7 @@ printf("----------------------------\n\n");
     ll->x2 = xh,
     ll->y2 = (int16_t)(*yo+YB/5);
     xcb_poly_segment (connection, window, foreground, 1, ll );
-    draw_text (connection, screen, window, xh+3,(int16_t)(*yo+12), fgc,bgc, ht);
+    draw_text (connection, screen, window, xh+3,(int16_t)(*yo+12), textClr,0x0, ht);
   }
   // hatch marks and numbering on the negative x axis
   for (i=1; i<10; i++) {
@@ -1261,7 +1264,7 @@ printf("----------------------------\n\n");
     ll->x2 = xh;
     ll->y2 = (int16_t)(*yo+YB/5);
     xcb_poly_segment (connection, window, foreground, 1, ll );
-    draw_text (connection, screen, window, xh+3,(int16_t)(*yo+12), fgc,bgc, ht);
+    draw_text (connection, screen, window, xh+3,(int16_t)(*yo+12), textClr,0x0, ht);
   }
   // hatch marks and numbering on the positive y axis
   for (i=1; i<5; i++) {
@@ -1274,7 +1277,7 @@ printf("----------------------------\n\n");
     ll->x2 = (int16_t)(*xo+XB/5);
     ll->y2 = yh,
     xcb_poly_segment (connection, window, foreground, 1, ll );
-    draw_text (connection, screen, window, (int16_t)(*xo-XB), yh-3, fgc,bgc,ht);
+    draw_text (connection, screen, window, (int16_t)(*xo-XB), yh-3, textClr,0x0,ht);
   }
   // hatch marks and numbering on the negative y axis
   for (i=1; i<5; i++) {
@@ -1287,13 +1290,13 @@ printf("----------------------------\n\n");
     ll->x2 = (int16_t)(*xo+XB/5);
     ll->y2 = yh,
     xcb_poly_segment (connection, window, foreground, 1, ll );
-    draw_text (connection, screen, window, (int16_t)(*xo-XB), yh-3, fgc,bgc,ht);
+    draw_text (connection, screen, window, (int16_t)(*xo-XB), yh-3, textClr,0x0,ht);
   }
 
-  // draw title and axis labels 
-//draw_text (connection,screen,window, SCREEN_W/4, YB/2, 0xecdc6e,bgc, title );
-  draw_text (connection,screen,window, (int)(0.95*SCREEN_W),*yo+YB/2, fgc,bgc, Xlabel);
-  draw_text (connection,screen,window, (int)(XB/2),(int)(YB-6), fgc,bgc, "full scale" );
+// draw title and axis labels 
+//draw_text (connection,screen,window, SCREEN_W/4, YB/2, textClr,0x0, title );
+  draw_text (connection,screen,window, (int)(0.95*SCREEN_W),*yo+YB/2, textClr,0x0, Xlabel);
+  draw_text (connection,screen,window, (int)(XB/2),(int)(YB-6), textClr,0x0, "full scale" );
 
   //  Display the channel labels in color of the lines.
   gc_mask     = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND;
@@ -1302,9 +1305,10 @@ printf("----------------------------\n\n");
     gc_value[0] = CHNL_COLR[chn];
     xcb_change_gc  (connection, foreground, gc_mask, gc_value);
     draw_text (connection, screen, window,
-            SCREEN_W-100, YB+15*(chn+1), CHNL_COLR[chn],bgc, chnl[chn].label );
+            SCREEN_W-100, YB+15*(chn+1), CHNL_COLR[chn],0x0, chnl[chn].label );
   }
 
+  fprintf(stderr," plot_set up . . . . . . . . . . . . . . . . . . . . . . . . .  success \n"); 
   return;
 }
 

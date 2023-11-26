@@ -24,7 +24,9 @@ To configure the WaveShare HPADDA board for use with **HPGdaac**,
 
 ## Installation 
 
-1. clone software from github to your RPi, e.g., to your ~/Code/ directory
+The current version (this version) of HPGdaac works on the Raspberry Pi 4B hardware running the 2023-10-10 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v8) 
+
+1. clone software from github to your RPi, e.g., e.g., to your ~/Code/ directory
 ```
 mkdir ~/Code
 cd ~/Code
@@ -34,16 +36,29 @@ git clone https://github.com/hpgavin/HPGdaac
 git clone https://github.com/hpgavin/HPGdaac-xtra  
 ```
 
-2. patch the RPi kernel with PREEMPT-RT 
-    following instructions in ... doc/PREEMPT-RT-install-log  
-
-3. install GPIO driver source codes
-    following instructions in ... doc/bcm2835-software-install
-
-4. install the xcb development sources
+2. install the xcb development sources
 ```
 sudo apt install libx11-xcb-dev
 ```
+
+3. install the C library for Broadcom BCM 2835 to rapidly access the general purupose Input/Output (GPIO) interface and the Serial Peripheral Interface (SPI) and Integer Integrated Circuit (I2C) interfaces.   RPIdaac uses GPIO and SPI interfaces. 
+
+```
+cd ~/Code
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz
+tar zxvf bcm2835-1.73.tar.gz
+    cd bcm2835-1.73
+    ./configure
+    make
+    sudo make check
+    sudo make install
+    cd ..
+    rm -rf bcm2835-1.73
+```
+
+4. patch the RPi kernel with PREEMPT-RT using instructions in HPGdaac/doc/PREEMPT-RT-install-log
+
+
 5. install gnuplot for simple data plotting after the test
 ```
 sudo apt install gnuplot
