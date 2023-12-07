@@ -47,13 +47,13 @@ sudo apt install libx11-xcb-dev
 cd ~/Code
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz
 tar zxvf bcm2835-1.73.tar.gz
-    cd bcm2835-1.73
-    ./configure
-    make
-    sudo make check
-    sudo make install
-    cd ..
-    rm -rf bcm2835-1.73
+cd bcm2835-1.73
+./configure
+make
+sudo make check
+sudo make install
+cd ..
+rm -rf bcm2835-1.73
 ```
 
 4. patch the RPi kernel with PREEMPT-RT using instructions in HPGdaac/doc/PREEMPT-RT-install-log
@@ -93,8 +93,8 @@ Example test configuration file:
 
 ```
 Title: data acquisition via HPGdaac
-Acquisition Time (duration of test, sec)   :   33.0
-Channel scan rate (scans per sec)          :  200.0
+Acquisition Time (duration of test, sec)   :   66.0
+Channel scan rate (scans per sec)          :  100.0
 Digitization rate 1000, 2000, 3750, 7500   : 2000.0
 Number of Channels   [1 to 8]              :   2
 Channel Positive Pin [0 to 7]              :   0   2   2   3   4   5   6   7
@@ -106,7 +106,7 @@ Number of Control Constants                : 0
 D/A 0 data filename                        : DA-files/chirp0.dat
 D/A 1 data filename                        : DA-files/chirp1.dat
 ```
-With  with this test configuration **HPGdaac** will collect data for 33 seconds, scanning the set of specified channels 200 times each second, and converting each channel voltage to digital in 0.5 micro-seconds (2000 conversions per second). 
+With  with this test configuration **HPGdaac** will collect data for 66seconds, scanning the set of specified channels 100 times each second, and converting each channel voltage to digital in 0.5 micro-seconds (2000 conversions per second). 
 
 **HPGdaac** will scan two channels. *Channel 0* measures the voltage difference (*V*<sub>0</sub> - *V*<sub>1</sub>) between pin 0 (positive) and pin 1 (negative) and *Channel 1* measures the voltage difference(*V*<sub>2</sub> - *V*<sub>3</sub>)  between pin 2 (positive) and pin 3 (negative).  
 
