@@ -6,10 +6,10 @@ Instructions at raspberrypi.com for compiling the kernel actually now include an
 
 In the PREEMPT_RT 6.0 kernel, the CONFIG_PREEMPT_RT_FULL configuration option was still available. This option provided a fully preemptible real-time kernel, allowing for low-latency and deterministic behavior. 
 
-The CONFIG_PREEMPT_RT_FULL configuration option was removed in the PREEMPT_RT 6.1 kernel. This option provided a fully preemptible real-time kernel, but it was found to have some limitations and issues. The developers decided to remove it and focus on improving the mainline PREEMPT_RT patch instead. The mainline patch provides a good balance between real-time capabilities and general-purpose functionality. 
+The CONFIG_PREEMPT_RT_FULL configuration option was removed in the PREEMPT_RT 6.1 kernel. As the developers found it to have some limitations and issues they decided to remove it and focus on improving the mainline PREEMPT_RT patch instead. The mainline patch provides a good balance between real-time capabilities and general-purpose functionality. 
 
 Perhaps a future version of the PREEMPT_RT patch will provide the performance enabled by CONFIG_PREEMPT_RT_FULL.   
-In the meantime a version of this document for kernel 5.10 (Debian Bullseye) and the PREEMPT_RT patch 5.10-rt (supported until December 2026) is forthcoming.  
+In the meantime a version of this document for kernel 5.10 (Debian Bullseye) and the PREEMPT_RT patch 5.10-rt (supported until December 2026) will be forthcoming.  
 
 ## 0.  The installation of PREEMPT-RT on Raspberry PI involves ... 
 
@@ -55,14 +55,13 @@ sudo apt install crossbuild-essential-arm64      # ... for 64 bit RPi kernel
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiling-the-kernel>
 * <https://wiki.linuxfoundation.org/realtime/documentation/howto/applications/preemptrt_setup>
-* <https://github.com/raspberrypi/tools> ... read the README.md and get the build tools from ubuntu apt using ... 
+* <https://github.com/raspberrypi/tools> ... read the README.md
 
 ## 2.  Install the desired RPi OS version on your RPi SD card (if needed) 
 
 If needed, backup your user data from your Raspberry Pi ~ filesystem 
 
-Use a MicroSD card reader ... 
-e.g. CanaKit Mini MicroSD USB Reader SKU: CK-USB-READER
+Use a MicroSD card reader ... e.g., CanaKit Mini MicroSD USB Reader SKU: CK-USB-READER
 
 Install the 32-bit version of Raspberry Pi OS that matches your
 desktop installation to SD card via the Raspberry Pi SD card imager app from ...
@@ -106,10 +105,12 @@ head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
 ```
 Check the RPi kernel version, patch level, and sublevel ... 
 
+```
    # SPDX-License-Identifier: GPL-2.0
    VERSION = 6
    PATCHLEVEL = 1
    SUBLEVEL = 64
+```
 
 Identify the patch with the corresponding version, patch level and sublevel from <https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/> and download it
 ```
