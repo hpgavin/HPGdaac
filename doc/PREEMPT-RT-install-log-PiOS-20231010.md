@@ -4,12 +4,19 @@ Instructions at raspberrypi.com for compiling the kernel actually now include an
 
 <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiling-the-kernel>
 
-In the PREEMPT_RT 6.0 kernel, the CONFIG_PREEMPT_RT_FULL configuration option was still available. This option provided a fully preemptible real-time kernel, allowing for low-latency and deterministic behavior. 
+Starting with Kernel 5.12, ``The CONFIG_PREEMPT_DYNAMIC option when enabled allows setting preempt= at boot time to either none/voluntary/full with full preemption being the default.''
+... ``this dynamic option allows changing it at boot time without rebuilding the kernel.''
+https://lkml.iu.edu/hypermail/linux/kernel/2102.2/01311.html
+https://www.phoronix.com/news/Linux-5.12-Dynamic-Preempt
 
-The CONFIG_PREEMPT_RT_FULL configuration option was removed in the PREEMPT_RT 6.1 kernel. As the developers found it to have some limitations and issues they decided to remove it and focus on improving the mainline PREEMPT_RT patch instead. The mainline patch provides a good balance between real-time capabilities and general-purpose functionality. 
+https://linuxconfig.org/how-to-set-kernel-boot-parameters-on-linux
 
-Perhaps a future version of the PREEMPT_RT patch will provide the performance enabled by CONFIG_PREEMPT_RT_FULL.   
-In the meantime a version of this document for kernel 5.10 (Debian Bullseye) and the PREEMPT_RT patch 5.10-rt (supported until December 2026) will be forthcoming.  
+https://www.howtoforge.com/tutorial/kernel-boot-parameter-edit/
+
+https://shuhaowu.com/blog/2022/02-linux-rt-appdev-part2.html
+
+
+
 
 ## 0.  The installation of PREEMPT-RT on Raspberry PI involves ... 
 
