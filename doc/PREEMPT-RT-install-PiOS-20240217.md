@@ -3,8 +3,7 @@
 These instructions are modified from Raspberry Pi kernel compilation documentation
 which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
 
-www.raspberrypi.com > documentation > computers > the linux kernel 
-
+* <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
 ## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
 
