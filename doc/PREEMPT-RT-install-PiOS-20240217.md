@@ -1,17 +1,17 @@
 # Patching and building Rapsberry Pi OS with PREEMMPT_RT ... on 2024-02-17 
  
 These instructions are modified from Raspberry Pi kernel compilation documentation
-which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
+which includes an example of patching with PREEMPT_RT and building the kernel sources.   (thank you!!)
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
 ## 0.  Patching, configuring and building Raspberry Pi OS with PREEMPT_RT involves ... 
 
- * downloading Raspberry Pi kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number 
- * patching the Raspberry Pi linux kernel sources with the PREEMTP-RT patch
- * configuring the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
- * building the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
- * installing the built Raspberry Pi linux kernel on the Raspbery Pi
+ * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number 
+ * patching the Raspberry Pi OS kernel sources with the matching PREEMTP-RT patch
+ * configuring the patched Raspberry Pi OS kernel source on the Raspberry Pi 
+ * building the patched Raspberry Pi OS kernel source on the Raspberry Pi 
+ * installing the built Raspberry Pi OS kernel on the Raspbery Pi
 
 To check the kernel version, distribution name, and bits of your current Raspberry Pi OS installation ...
 ```
@@ -50,7 +50,7 @@ head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
 * <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 * <https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/older/>
 
-## 2.  Patch the kernel with the PREEMPT_RT patch 
+## 2.  Patch the kernel sources with the PREEMPT_RT patch 
 
 ```
 cd Code/RPi-rt/linux
@@ -59,7 +59,7 @@ cat patch-6.1.77-rt24.patch | patch -p1 --dry-run    # check that the patch fits
 cat patch-6.1.77-rt24.patch | patch -p1 
 ```
 
-## 3.  Configure the patched kernel for your Raspberry Pi OS version 
+## 3.  Configure the patched kernel sources for your Raspberry Pi OS version 
 
 ```
 cd  Code/RPi-rt/linux 
@@ -122,13 +122,13 @@ sudo make modules_install
 ```
 cd Code/RPi-rt/linux
 
-# for Bullseye ... 
+ # for Bullseye ... 
 sudo cp -v arch/arm/boot/dts/*.dtb /boot/
 sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
 sudo cp -v arch/arm/boot/dts/overlays/README /boot/overlays/
 sudo cp -v arch/arm/boot/zImage /boot/$KERNEL.img
 
-# for Bookworm  ... 
+ # for Bookworm  ... 
 sudo cp -v arch/arm/boot/dts/*.dtb /boot/firmware/
 sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
 sudo cp -v arch/arm/boot/dts/overlays/README /boot/firmware/overlays/
