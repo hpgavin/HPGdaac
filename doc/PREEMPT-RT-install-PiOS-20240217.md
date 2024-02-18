@@ -117,7 +117,7 @@ sudo make modules_install
 ```
    DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+
 ```
-## 5.  Install the patched kernel onto your Raspberry Pi 
+## 5.  Install the patched and built kernel onto your Raspberry Pi 
 
 ```
 cd Code/RPi-rt/linux
