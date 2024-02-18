@@ -13,6 +13,14 @@ which includes an example of patching with PREEMPT_RT and building the kernel.  
  * building the patched Raspberry Pi OS kernel on the Raspberry Pi 
  * installing the built Raspberry Pi OS kernel onto the Raspbery Pi
 
+First, update and upgrade your OS distribution and install required packages
+```
+sudo apt update
+sudo apt upgrade
+<reboot>
+sudo apt install git bc bison flex libssl-dev make libncurses-dev
+```
+
 To check the kernel version, distribution name, and bits of your current Raspberry Pi OS installation ...
 ```
 uname -a
@@ -37,7 +45,6 @@ git clone --depth=1 --branch rpi-6.1.y https://github.com/raspberrypi/linux
 wget https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.1/patch-6.1.77-rt24.patch.gz
 ```
 Confirm the RPi kernel source version, patch level, and sublevel ... 
-
 ```
 cd    Code/RPi-rt/linux
 head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
@@ -47,6 +54,8 @@ head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
    PATCHLEVEL = 1
    SUBLEVEL = 77
 ```
+The VERSION and PATCHLEVEL of the linux source need to match the output of hostnamectl, above ...
+
 * <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 * <https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/older/>
 
