@@ -5,12 +5,13 @@ which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
-## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
+## 0.  The installation of PREEMPT_RT on Raspberry Pi involves ... 
 
- * collecting Raspberry Pi kernel sources and the PREEMPT_RT patch with matching version numbers 
+ * downloading Raspberry Pi kernel sources and the PREEMPT_RT patch with matching version numbers 
  * patching the Raspberry Pi linux kernel sources with the PREEMTP-RT patch
- * compiling the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
- * installing the patched and compiled Raspberry Pi linux kernel on the Raspbery Pi
+ * configuring the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
+ * building the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
+ * installing the built Raspberry Pi linux kernel on the Raspbery Pi
 
 To check the kernel version, distribution name, and bits of your current RPi installation ...
 ```
@@ -162,7 +163,7 @@ Linux hpg-rpi-00 6.1.77-rt24-v7l-rt+ #1 SMP PREEMPT_RT Sat Feb 17 14:49:50 EST 2
 * <https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test>
 * <https://lemariva.com/blog/2018/07/raspberry-pi-preempt-rt-patching-tutorial-for-kernel-4-14-y>
 
-## 8.  RT-Tests suite
+## 6.  RT-Tests suite
 
 ```
 sudo apt install rt-tests
@@ -174,7 +175,7 @@ grep -v -e "^#" -e "^$" output.txt | tr " " "," | tr "\t" "," >histogram.csv
 sed -i '1s/^/time,core1,core2,core3,core4\n /' histogram.csv
 ```
 
-## 9. Programming for realtime performance ...
+## 7. Programming for realtime performance ...
 
 * <https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test>
 * <https://taste.tuxfamily.org/wiki/index.php?title=Tricks_and_tools_for_PREEMPT-RT_kernel>
