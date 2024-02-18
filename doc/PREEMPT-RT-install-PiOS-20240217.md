@@ -1,25 +1,27 @@
 # PREEMMPT_RT install log for 32-bit PiOS on 2024-02-17 
  
-These instructions are modified from Raspberry Pi kernel compilation documentation <http://raspberrypi.com/documentation/computers/linux_kernel.html/> which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
+These instructions are modified from Raspberry Pi kernel compilation documentation
+<https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
+which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
 
+<https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
  
-<https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiling-the-kernel>
 
-## 0.  The installation of PREEMPT-RT on Raspberry PI involves ... 
+## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
 
  * collecting Raspberry Pi kernel sources and the PREEMPT_RT patch with matching version numbers 
- * patching the Raspberry PI linux kernel sources with the PREEMTP-RT patch
- * compiling the patched Raspberry PI Linux kernel source on the Raspberry PI 
- * installing the patched and compiled Raspberry PI linux kernel on the Raspbery PI
+ * patching the Raspberry Pi linux kernel sources with the PREEMTP-RT patch
+ * compiling the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
+ * installing the patched and compiled Raspberry Pi linux kernel on the Raspbery Pi
 
-Check the kernel version, distribution name, and bits of your current RPi installation 
+To check the kernel version, distribution name, and bits of your current RPi installation ...
 ```
 uname -a
 hostnamectl
 getconf LONGBIT  # confirm the  PiOS is a 32 bit OS
 ```
 
-  The versions used to build a new RT kernel today, 2024-02-17, are
+  The versions used to build a PREEMPT_RT patched kernel today, 2024-02-17, are
 
   * Raspberry Pi OS on RPi 4B     : kernel version   6.1.77
     <https://github.com/raspberrypi/linux/tree/rpi-6.1.y>
@@ -27,28 +29,24 @@ getconf LONGBIT  # confirm the  PiOS is a 32 bit OS
   * PREEMPT_RT patch              : patch version    6.1.77
     <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 
-## 1.  Download the corresponding Raspberry Pi OS kernel and the corresponding PREEMPT_RT patch 
+## 1.  Download the Raspberry Pi OS kernel sources and the corresponding PREEMPT_RT patch 
 
 ```
 mkdir Code/RPi-rt
 cd    Code/RPi-rt
 git clone --depth=1 --branch rpi-6.1.y https://github.com/raspberrypi/linux
-cd    /tmp/RPi-rt/linux
-head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
+wget https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.1/patch-6.1.77-rt24.patch.gz
 ```
-Check the RPi kernel version, patch level, and sublevel ... 
+Confirm the RPi kernel source version, patch level, and sublevel ... 
 
+```
+cd    Code/RPi-rt/linux
+head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
 ```
    # SPDX-License-Identifier: GPL-2.0
    VERSION = 6
    PATCHLEVEL = 1
    SUBLEVEL = 77
-```
-
-Identify the patch with the corresponding version, patch level and sublevel from <https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/> and download it
-```
-wget https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/6.1/patch-6.1.77-rt24.patch.gz
-```
 
 * <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 * <https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/older/>
@@ -67,10 +65,12 @@ cat patch-6.1.77-rt24.patch | patch -p1
 ```
 cd  Code/RPi-rt/linux 
 make clean
-export KERNEL=kernel7l    # for 32 bit OS on a RPi 4B
+export KERNEL=kernel7l        # for 32 bit OS on a RPi 4B
+#export KERNEL=kernel8         # for 64 bit OS on a RPi 4B
+#export KERNEL=kernel_2712     # for 64 bit OS on a RPi 5
 export ARCH=arm
-make bcm2711_defconfig    # ... apply the Default Configuration 
-make menuconfig           # ... edit the configuration for PREEMPT_RT
+make bcm2711_defconfig        # ... apply the Default Configuration 
+make menuconfig               # ... edit the configuration for PREEMPT_RT
 ```
 
   navigate to ...
@@ -85,7 +85,7 @@ make menuconfig           # ... edit the configuration for PREEMPT_RT
     
   < Exit >  < Exit >  and  < Save >  to .config 
 
-check .config to confirm ...
+check .config to confirm it contains these lines (32 bit OS for RPi 4) ...
 ```
  CONFIG_LOCALVERSION="-v7l"
  CONFIG_HIGH_RES_TIMERS=y
@@ -94,7 +94,7 @@ check .config to confirm ...
  CONFIG_HZ=1000
 ```
 if CONFIG_LOCALVERSION is not -v7l then something went wrong with this configuration step.  re-do step 3.
-otherwise, edit .config to change
+otherwise, edit .config to read ...
 ```
 CONFIG_LOCALVERSION="-v7l-rt"
 ```
