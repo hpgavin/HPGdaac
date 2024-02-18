@@ -5,6 +5,8 @@ which includes an example of patching with PREEMPT_RT and building the kernel.  
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
+Note: as of now, HPGdaac is confired to work on 32 bit RPi OS with PREEMPT_RT patches.    It is not yet clear if the HPADDA hardware can work on 64 bit RPi with PREEMPT_RT patches.  
+
 ## 0.  Patching, configuring and building Raspberry Pi OS with PREEMPT_RT involves ... 
 
  * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number 
@@ -180,10 +182,15 @@ After rebooting ...
 ```
 uname -a
 ```
-should indicate PREEMPT_RT like ... 
+For 32 bit kernels, this should indicate PREEMPT_RT like ... 
 ```
 Linux hpg-rpi-00 6.1.77-rt24-v7l-rt+ #1 SMP PREEMPT_RT Sat Feb 17 14:49:50 EST 2024 armv7l GNU/Linux
 ```
+For 64 bit kernels, this should indicate PREEMPT_RT like ... 
+```
+Linux hpg-rpi-00 6.1.77-rt24-v8-rt+ #1 SMP PREEMPT_RT Sun Feb 18 15:04:44 EST 2024 aarch64 GNU/Linux
+```
+
 
 * <https://www.raspberrypi.com/documentation/computers/config_txt.html#kernel>
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html>
