@@ -127,13 +127,14 @@ cd /tmp/RPi-rt/linux
 make help                    
 # for 32 bit confirm that zImage (or Image), modules, and dtbs are marked with a "*"
 # for 64 bit confirm that vmlinux, modules, dtbs, and Image.gz are marked with a "*"
-make -j4 all # this will take hours on a RPi 4
+make -j4 all # this will take about three hours on a RPi 4
 sudo make modules_install
 ```
    At the end of modules_install output,
    the last section of DEPMOD reports the version of your new RT kernel ...   
 ```
-   DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+
+  DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+   # 32 bit kernel
+  DEPMOD  /lib/modules/6.1.77-rt24-v8-rt+               # 64 bit kernel
 ```
 ## 5.  Install the patched and built kernel onto your Raspberry Pi 
 
@@ -147,12 +148,12 @@ sudo cp -v arch/arm/boot/dts/overlays/README /boot/overlays/
 sudo cp -v arch/arm/boot/zImage /boot/$KERNEL.img
 
  # for Bookworm  ... 
-sudo cp -v arch/arm/boot/dts/*.dtb /boot/firmware/
-sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
-sudo cp -v arch/arm/boot/dts/overlays/README /boot/firmware/overlays/
-sudo cp -v arch/arm/boot/zImage /boot/firmware/$KERNEL.img
+sudo cp -v arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/
+sudo cp -v arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
+sudo cp -v arch/arm64/boot/dts/overlays/README /boot/firmware/overlays/
+sudo cp -v arch/arm64/boot/Image.gz /boot/firmware/$KERNEL.img
 ```
-At the top of /boot/config.txt ... specify the .img file in /boot/ (or /boot/firmware/) to use ...
+For 32 bit OS, at the top of /boot/config.txt ... specify the .img file in /boot/ (or /boot/firmware/) to use ...
 ```
 # kernel with PREEMPT_RT
 kernel=kernel7l.img
@@ -160,6 +161,16 @@ kernel=kernel7l.img
 In the [pi4] section of /boot/config.txt ... add ...
 ```
 arm_64bit=0
+
+For 64 bit OS, at the top of /boot/firmware/config.txt ... specify the .img file in /boot/ (or /boot/firmware/) to use ...
+```
+# kernel with PREEMPT_RT
+kernel=kernel8.img
+```
+Confirm that /boot/firmware/config.txt includes the line ... arm_64bit=1 
+
+To enable SPI, uncomment  dtparam=spi=on
+
 ```
 reboot
 ```
