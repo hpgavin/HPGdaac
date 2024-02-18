@@ -1,11 +1,9 @@
 # PREEMMPT_RT install log for 32-bit PiOS on 2024-02-17 
  
 These instructions are modified from Raspberry Pi kernel compilation documentation
-<https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
 which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
 
 <https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
- 
 
 ## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
 
