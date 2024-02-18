@@ -5,6 +5,7 @@ which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!
 
 <https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
 
+
 ## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
 
  * collecting Raspberry Pi kernel sources and the PREEMPT_RT patch with matching version numbers 
