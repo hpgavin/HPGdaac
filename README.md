@@ -45,15 +45,15 @@ sudo apt install libx11-xcb-dev
 
 ```
 cd ~/Code
-wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.73.tar.gz
-tar zxvf bcm2835-1.73.tar.gz
-cd bcm2835-1.73
+wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.75.tar.gz
+tar zxvf bcm2835-1.75.tar.gz
+cd bcm2835-1.75
 ./configure
 make
 sudo make check
 sudo make install
 cd ..
-rm -rf bcm2835-1.73
+rm -rf bcm2835-1.75
 ```
 
 4. patch the RPi kernel with PREEMPT-RT using instructions in HPGdaac/doc/PREEMPT-RT-install-log
