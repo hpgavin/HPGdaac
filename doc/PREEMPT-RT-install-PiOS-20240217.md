@@ -3,7 +3,7 @@
 These instructions are modified from Raspberry Pi kernel compilation documentation
 which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
 
-<https://www.raspberrypi.com/documentation/computers/linux_kernel.html/>
+www.raspberrypi.com > documentation > computers > the linux kernel 
 
 
 ## 0.  The installation of PREEMPT-RT on Raspberry Pi involves ... 
@@ -20,7 +20,7 @@ hostnamectl
 getconf LONGBIT  # confirm the  PiOS is a 32 bit OS
 ```
 
-  The versions used to build a PREEMPT_RT patched kernel today, 2024-02-17, are
+  The versions used to successfully build a PREEMPT_RT patched kernel today, 2024-02-17, are
 
   * Raspberry Pi OS on RPi 4B     : kernel version   6.1.77
     <https://github.com/raspberrypi/linux/tree/rpi-6.1.y>
@@ -41,12 +41,12 @@ Confirm the RPi kernel source version, patch level, and sublevel ...
 ```
 cd    Code/RPi-rt/linux
 head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
-```
+# ... results in ... 
    # SPDX-License-Identifier: GPL-2.0
    VERSION = 6
    PATCHLEVEL = 1
    SUBLEVEL = 77
-
+```
 * <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 * <https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/older/>
 
@@ -68,7 +68,8 @@ export KERNEL=kernel7l        # for 32 bit OS on a RPi 4B
 #export KERNEL=kernel8         # for 64 bit OS on a RPi 4B
 #export KERNEL=kernel_2712     # for 64 bit OS on a RPi 5
 export ARCH=arm
-make bcm2711_defconfig        # ... apply the Default Configuration 
+make bcm2711_defconfig        # ... apply the default Configuration for RPi 4B
+#make bcm2712_defconfig        # ... apply the default Configuration for RPi 5
 make menuconfig               # ... edit the configuration for PREEMPT_RT
 ```
 
@@ -174,7 +175,7 @@ grep -v -e "^#" -e "^$" output.txt | tr " " "," | tr "\t" "," >histogram.csv
 sed -i '1s/^/time,core1,core2,core3,core4\n /' histogram.csv
 ```
 
-## 9. Programming for realtime performace ...
+## 9. Programming for realtime performance ...
 
 * <https://lemariva.com/blog/2019/09/raspberry-pi-4b-preempt-rt-kernel-419y-performance-test>
 * <https://taste.tuxfamily.org/wiki/index.php?title=Tricks_and_tools_for_PREEMPT-RT_kernel>
