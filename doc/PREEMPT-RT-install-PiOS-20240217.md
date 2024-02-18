@@ -1,19 +1,19 @@
-# PREEMMPT_RT install log for 32-bit PiOS on 2024-02-17 
+# Patching and building Rapsberry Pi OS with PREEMMPT_RT ... on 2024-02-17 
  
 These instructions are modified from Raspberry Pi kernel compilation documentation
 which includes an example of compiling with the PREEMPT_RT patch.   (thank you!!)
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
-## 0.  The installation of PREEMPT_RT on Raspberry Pi involves ... 
+## 0.  Patching, configuring and building Raspberry Pi OS with PREEMPT_RT involves ... 
 
- * downloading Raspberry Pi kernel sources and the PREEMPT_RT patch with matching version numbers 
+ * downloading Raspberry Pi kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number 
  * patching the Raspberry Pi linux kernel sources with the PREEMTP-RT patch
  * configuring the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
  * building the patched Raspberry Pi Linux kernel source on the Raspberry Pi 
  * installing the built Raspberry Pi linux kernel on the Raspbery Pi
 
-To check the kernel version, distribution name, and bits of your current RPi installation ...
+To check the kernel version, distribution name, and bits of your current Raspberry Pi OS installation ...
 ```
 uname -a
 hostnamectl
@@ -28,7 +28,7 @@ getconf LONGBIT  # confirm the  PiOS is a 32 bit OS
   * PREEMPT_RT patch              : patch version    6.1.77
     <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 
-## 1.  Download the Raspberry Pi OS kernel sources and the corresponding PREEMPT_RT patch 
+## 1.  Download the Raspberry Pi OS kernel sources and the PREEMPT_RT patch for your current Raspberry Pi installation
 
 ```
 mkdir Code/RPi-rt
@@ -59,7 +59,7 @@ cat patch-6.1.77-rt24.patch | patch -p1 --dry-run    # check that the patch fits
 cat patch-6.1.77-rt24.patch | patch -p1 
 ```
 
-## 3.  Configure the patched kernel for RPi 4B
+## 3.  Configure the patched kernel for your Raspberry Pi OS version 
 
 ```
 cd  Code/RPi-rt/linux 
@@ -103,12 +103,12 @@ CONFIG_LOCALVERSION="-v7l-rt"
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#cross-compiling-the-kernel>
 * <https://robskelly.com/2020/10/14/raspberry-pi-4-with-64-bit-os-and-preempt_rt/>
 
-## 4.  Build the patched kernel for RPi 4B with 32 bit OS
+## 4.  Build the patched kernel 
 
 ```
 nproc                         # the number of processors 
 cd /tmp/RPi-rt/linux
-make help                     # confirm that zImage modules dtbs are marked with a "*"
+make help                     # confirm that zImage (or Image), modules, and dtbs are marked with a "*"
 make -j4 zImage modules dtbs  # this will take hours on a RPi 4
 sudo make modules_install
 ```
@@ -117,7 +117,7 @@ sudo make modules_install
 ```
    DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+
 ```
-## 5.  Install the patched kernel for RPi 4B with 32 bit OS
+## 5.  Install the patched kernel for your Raspberry Pi OS 
 
 ```
 cd Code/RPi-rt/linux
