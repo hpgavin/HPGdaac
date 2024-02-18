@@ -1,4 +1,4 @@
-# Patching and building Rapsberry Pi OS with PREEMMPT_RT ... on 2024-02-17 
+# Patching and building Rapsberry Pi OS with PREEMPT_RT ... on 2024-02-17 
  
 These instructions are modified from Raspberry Pi kernel compilation documentation
 which includes an example of patching with PREEMPT_RT and building the kernel sources.   (thank you!!)
@@ -117,7 +117,7 @@ sudo make modules_install
 ```
    DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+
 ```
-## 5.  Install the patched kernel for your Raspberry Pi OS 
+## 5.  Install the patched kernel into your Raspberry Pi OS 
 
 ```
 cd Code/RPi-rt/linux
