@@ -34,9 +34,9 @@ arm_64bit=0
 
 Confirm the kernel version (6.1), distribution name (Bookworm), and bits of your current Raspberry Pi OS installation (32) ...
 ```
-uname -a
-hostnamectl
-getconf LONG_BIT  # confirm the  PiOS is a 32 bit or a 64 bit OS
+uname -a          # should be kernel7l version 6.1
+hostnamectl       # should be Bookworm
+getconf LONG_BIT  # should be ... 32 bit 
 ```
 
   The versions used to successfully build a PREEMPT_RT patched kernel today, 2024-02-19, are
