@@ -34,8 +34,8 @@ arm_64bit=0
 
 Confirm the kernel version (6.1), distribution name (Bookworm), and bits of your current Raspberry Pi OS installation (32) ...
 ```
-uname -a          # should be kernel7l version 6.1
-hostnamectl       # should be Bookworm
+uname -a          # should be ... 6.1.0-rpi8-rpi-v7l 
+hostnamectl       # should be ... (bookworm)
 getconf LONG_BIT  # should be ... 32 bit 
 ```
 
