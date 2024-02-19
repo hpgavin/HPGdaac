@@ -26,9 +26,9 @@ sudo apt install git bc bison flex libssl-dev make libncurses-dev
 edit /boot/firmware/config.txt (Bookworm) or /boot/config.txt (Bullseye) to set
 ```
 # kernel with PREEMPT_RT
-kernel=kernel8.img
+kernel=kernel7l.img
 [pi4]
-arm_64bit=1
+arm_64bit=0
 ```
 <reboot>
 
