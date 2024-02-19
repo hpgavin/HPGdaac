@@ -1,4 +1,4 @@
-# Patching and building Rapsberry Pi OS with PREEMPT_RT ... on 2024-02-18 
+# Patching and building Rapsberry Pi OS with PREEMPT_RT ... on 2024-02-19 
  
 These instructions are modified from Raspberry Pi kernel compilation documentation which includes an example of patching with PREEMPT_RT and building the kernel.   (thank you!!)
 
