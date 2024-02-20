@@ -2,9 +2,9 @@
 
 **H**igh **P**erformance **G**raphing data acquisition and control
 
-An open-source command-line interface between a Raspberry Pi and a
-[WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
-(24 bit, 8 channel, 30 kHz/chnl) hat. 
+A command-line interface between a Raspberry Pi and a
+[WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm) board 
+(AD: 24 bit, 8 chnl; DA: 16 bit, 2 chnl). 
 
 ---------------------------------
 
