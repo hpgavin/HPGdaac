@@ -189,7 +189,7 @@ Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displa
 **HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by a date-time stamp of the test.   The user may then choose to delete or retain the *digitized data file*.   
 
 When the user chooses to retain the *digitized data file*, **HPGdaac**
-creates or appends a Gnuplot script called `plotall.sh' and 
+creates or appends a Gnuplot script called `plotall.sh` and 
 an executable shell script file called `scaleall.sh` . 
 Running Gnuplot script `plotall.sh` from within Gnuplot plots the digitized data files. 
 Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
