@@ -1,6 +1,6 @@
 # HPGdaac
 
-High Performance Graphing data acquisition and control:
+**H**igh **P**erformance **G**raphing data acquisition and control
 
 An open-source command-line interface between a Raspberry Pi and a
 [WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
@@ -24,7 +24,7 @@ To configure the WaveShare HPADDA board for use with **HPGdaac**,
 
 ## Installation 
 
-The current version (this version) of HPGdaac works on the Raspberry Pi 4B hardware running the 2023-10-10 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v8) 
+**HPGdaac** works on the Raspberry Pi 4B (and earlier?) hardware running the 2023-12-05 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v7l) patched with PREEMPT_RT. 
 
 1. clone software from github to your RPi, e.g., e.g., to your ~/Code/ directory
 ```
@@ -41,8 +41,7 @@ git clone https://github.com/hpgavin/HPGdaac-xtra
 sudo apt install libx11-xcb-dev
 ```
 
-3. install the C library for Broadcom BCM 2835 to rapidly access the general purupose Input/Output (GPIO) interface and the Serial Peripheral Interface (SPI) and Integer Integrated Circuit (I2C) interfaces.   RPIdaac uses GPIO and SPI interfaces. 
-
+3. install the C library for Broadcom BCM 2835 (and up to BCM 2711) to rapidly access the general purupose Input/Output (GPIO) interface and the Serial Peripheral Interface (SPI) interfaces of the HPADDA hardware. 
 ```
 cd ~/Code
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.75.tar.gz
@@ -56,7 +55,9 @@ cd ..
 rm -rf bcm2835-1.75
 ```
 
-4. patch the RPi kernel with PREEMPT-RT using instructions in HPGdaac/doc/PREEMPT-RT-install-log
+4. patch the RPi kernel with PREEMPT-RT using instructions 
+[PREEMPT_RT-install-PiOS-20240219]
+(http://www.github.com/hpgavin/HPGdaac/doc/PREEMPT_RT-install-PiOS-20240219.md)
 
 
 5. install gnuplot for simple data plotting after the test
@@ -76,7 +77,8 @@ sudo make install
 
 ## Usage
 
-**HPGdaac** is a command-line program for digitizing analog signals while simultaneously sending analog outputs and potentially performing real-time calculations at each time step.   **HPGdaac** is configured via a test configuration file and a sensor configuration file.   
+**HPGdaac** is a command-line program for digitizing analog signals while simultaneously plotting data points, sending analog outputs and potentially performing real-time calculations at each time step, in real time.
+**HPGdaac** is configured via a test configuration file and a sensor configuration file.   
 
 After installation, **HPGdaac** is run from the command-line using:
 ```
@@ -87,7 +89,7 @@ The *test configuration filename* and the *digitized data filename* may not cont
 ### Test configuration file
 
 Users may edit the first line (containing a descriptive title) and the ninth line (summarizing sensor configurations) in their entirety.   In all other lines,
-users may edit text following the colon (:). 
+users may edit text following the colon (`:`). 
 
 Example test configuration file:
 
@@ -106,35 +108,35 @@ Number of Control Constants                : 0
 D/A 0 data filename                        : DA-files/chirp0.dat
 D/A 1 data filename                        : DA-files/chirp1.dat
 ```
-With  with this test configuration **HPGdaac** will collect data for 66seconds, scanning the set of specified channels 100 times each second, and converting each channel voltage to digital in 0.5 micro-seconds (2000 conversions per second). 
+With  with this test configuration **HPGdaac** will collect data for 66 seconds, scanning two differential-input channels, 100 times each second, and digitizing each channel voltage in 0.5 milli-seconds (2000 conversions per second). 
 
-**HPGdaac** will scan two channels. *Channel 0* measures the voltage difference (*V*<sub>0</sub> - *V*<sub>1</sub>) between pin 0 (positive) and pin 1 (negative) and *Channel 1* measures the voltage difference(*V*<sub>2</sub> - *V*<sub>3</sub>)  between pin 2 (positive) and pin 3 (negative).  
+In this example,  *Channel 0* measures the voltage difference (*V*<sub>0</sub> - *V*<sub>1</sub>) between pin 0 (positive) and pin 1 (negative) and *Channel 1* measures the voltage difference(*V*<sub>2</sub> - *V*<sub>3</sub>)  between pin 2 (positive) and pin 3 (negative).  
 
-The "-1" for a pin indicates analog ground.  
+Pin `-1` indicates analog ground.  
  
 *Channel 0* will measure voltage differences in the range of -2.5 to +2.5 volts.  
 *Channel 1* will measure voltage differences in the range of -1.2 to +1.2 volts.  
-Sensor sensitivities for each channel are specified in the file snsrs.cfg (see below).  
+Sensor sensitivities for each channel are specified in the file `snsrs.cfg` (see below).  
 
 Since realtime calculations often involve user-specified constants, (like a feedback gain, for example) values for up to 16 constants may be specified.  See documentation in the Realtime Feedback Control section, below.  
 
-Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., DA-files.  
+Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., `DA-files`.  
 
 ### Sensor configuration file
 
 The *sensor configuration filename*  may not contain spaces.  
 
-Users may edit the first line (containing a descriptive title) and the eighth line and following lines in their entirety.   In all other lines, users may edit the content following the colon (:).  
+Users may edit the first line (containing a descriptive title) and the eighth line and following lines in their entirety.   In all other lines, users may edit the content following the colon (`:`).  
 
 Example sensor configuration file:
 
- * The 'Channel' column corresponds to the pair of Channel positive and Channel negative pins in the Test Configuration file.  
- * The 'Label'   column is a brief text description of the sensor.
- * The 'Sensitivity' column is the numerical value of the volts-per-physical-unit of the sensor.  
- * The 'V/Unit' column indicates the 'physical unit'
- * The 'DeClip' column indicates how the scaling operation will deal with clipped data
- * The 'Detrend' column indicates how the scaling operation will deal with biased or trending data
- * The 'Smooth' column indicates how much the scaling operation will smooth the digitized data
+ * The `Channel` column corresponds to the pair of `Channel positive` and `Channel negative` pins in the *Test Configuration file*.  
+ * The `Label`   column is a brief text description of the sensor.
+ * The `Sensitivity` column is the numerical value of the volts-per-physical-unit of the sensor.  
+ * The `V/Unit` column indicates the 'physical unit'
+ * The `DeClip` column indicates how the scaling operation will deal with clipped data
+ * The `Detrend` column indicates how the scaling operation will deal with biased or trending data
+ * The 'Smooth` column indicates how much the scaling operation will smooth the digitized data
 
 ```
 A template sensor configuration file for HPGdaac
@@ -184,14 +186,20 @@ After executing the command line ...
 HPGdaac <test configuration filename> <digitized data filename> 
 ```
 ... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
-Pressing "[enter]" or "Y [enter]" initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
-**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided *digitized data file* is appended by a date-time stamp of the test.   The user may then choose to delete or retain the digitized data file.   
+Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
+**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by a date-time stamp of the test.   The user may then choose to delete or retain the *digitized data file*.   
+
+When the user chooses to retain the *digitized data file*, **HPGdaac**
+creates or appends a Gnuplot script called `plotall.sh' and 
+an executable shell script file called `scaleall.sh` . 
+Running Gnuplot script `plotall.sh` from within Gnuplot plots the digitized data files. 
+Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
 
 ### Digitized data file header and format
 
 Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
 The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
-A voltage value of 0 corresponds to an digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of (2<sup>23</sup>-1) (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
+A voltage value of 0 corresponds to a digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of (2<sup>23</sup>-1) (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
 
 For example, running ...
 ```
@@ -247,7 +255,7 @@ For example, running ...
 ```
 scale  snsrs.cfg  data123.20230314.031416  data123.20230314.031416.scl  dataStats 
 ```
-... with the snsrs.cfg being the  *sensor configuration filename* shown above, 
+... with the `snsrs.cfg` being the  *sensor configuration filename* shown above, 
 results in the named **scaled** data file (*data123.20230314.031416.scl*)
 with a header of 19 lines  ... 
 ```

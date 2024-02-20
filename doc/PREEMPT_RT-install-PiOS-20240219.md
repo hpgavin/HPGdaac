@@ -4,12 +4,11 @@ These instructions are modified from Raspberry Pi kernel compilation documentati
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
-Note: as of now, HPGdaac is confired to work on 32 bit RPi OS with PREEMPT_RT patches.   
-These instructions are for the 32-bit RPi Bookworm release and kernel version 6.1
+These instructions are for the Raspberry Pi 4B running the 32-bit RPi OS bookworm release with kernel version 6.1 .  The bcm2835 librarary does not appear to be compatible with 64-bit RPi OS (or RPi 5 boards) at this time.  
 
 ## 0.  Patching, configuring and building Raspberry Pi OS with PREEMPT_RT involves ... 
 
- * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number 
+ * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number (presuming bookworm and kernel 6.1)
  * patching the Raspberry Pi OS kernel sources with the matching PREEMPT_RT patch
  * configuring the patched Raspberry Pi OS kernel source on the Raspberry Pi 
  * building the patched Raspberry Pi OS kernel on the Raspberry Pi 
@@ -23,7 +22,7 @@ sudo apt upgrade
 sudo apt install git bc bison flex libssl-dev make libncurses-dev
 ```
 
-edit /boot/firmware/config.txt (Bookworm) or /boot/config.txt (Bullseye) to set
+edit /boot/firmware/config.txt (bookworm) to set
 ```
 # kernel with PREEMPT_RT
 kernel=kernel7l.img
@@ -32,11 +31,11 @@ arm_64bit=0
 ```
 <reboot>
 
-Confirm the kernel version (6.1), distribution name (Bookworm), and bits of your current Raspberry Pi OS installation (32) ...
+Confirm the kernel version (6.1), distribution name (bookworm), and bits of your current Raspberry Pi OS installation (32) ...
 ```
-uname -a          # should be ... 6.1.0-rpi8-rpi-v7l 
-hostnamectl       # should be ... (bookworm)
-getconf LONG_BIT  # should be ... 32 bit 
+uname -a          # should indicate ... 6.1.0-rpi8-rpi-v7l 
+hostnamectl       # should indicate ... (bookworm)
+getconf LONG_BIT  # should indicate ... 32 bit 
 ```
 
   The versions used to successfully build a PREEMPT_RT patched kernel today, 2024-02-19, are
@@ -84,10 +83,8 @@ cat patch-6.1.77-rt24.patch | patch -p1
 ```
 cd  Code/RPi-rt/linux 
 make clean
-export KERNEL=kernel7l        # for 32 bit OS on a RPi 4B
-#export KERNEL=kernel8         # for 64 bit OS on a RPi 4B
+export KERNEL=kernel7l        # for 32 bit OS 
 export ARCH=arm               # for 32 bit OS 
-#export ARCH=arm64             # for 64 bit OS 
 make bcm2711_defconfig        # ... apply the default Configuration for RPi 4B
 make menuconfig               # ... edit the configuration for PREEMPT_RT
 ```
@@ -104,16 +101,16 @@ make menuconfig               # ... edit the configuration for PREEMPT_RT
     
   < Exit >  < Exit >  and  < Save >  to .config 
 
-check .config to confirm it contains these lines (32 bit OS for RPi 4) ...
+confirm that .config contains these lines (32 bit OS for RPi 4) ...
 ```
- CONFIG_LOCALVERSION="-v8"
+ CONFIG_LOCALVERSION="-v7l"
  CONFIG_HIGH_RES_TIMERS=y
  CONFIG_PREEMPT_RT=y
  CONFIG_HZ_1000=y
  CONFIG_HZ=1000
 ```
-* if you are running a 32 bit OS, and CONFIG_LOCALVERSION is not -v7l then something went wrong with this configuration step.  re-do step 3.
-* for a 32 bit OS, edit .config to read ...
+* if CONFIG_LOCALVERSION is not -v7l then something went wrong with this configuration step.  re-do step 3.
+* edit .config to read ...
 ```
 CONFIG_LOCALVERSION="-v7l-rt"
 ```
@@ -129,57 +126,45 @@ CONFIG_LOCALVERSION="-v7l-rt"
 nproc                         # the number of processors 
 cd /tmp/RPi-rt/linux
 make help                    
-# for 32 bit confirm that zImage (or Image), modules, and dtbs are marked with a "*"
-make -j4 all # this will take about three hours on a RPi 4
+# confirm that zImage (or Image), modules, and dtbs are marked with a "*"
+make -j4 all             # .. this will take about three hours on a RPi 4
 sudo make modules_install
 ```
-   At the end of modules_install output,
-   the last section of DEPMOD reports the version of your new RT kernel ...   
+At the end of modules_install output,
+the last section of DEPMOD reports the version of your new RT kernel ...   
 ```
-  DEPMOD  /tmp/RPi-rt/lib/modules/6.1.77-rt24-v7l-rt+   # 32 bit kernel
+  DEPMOD  lib/modules/6.1.77-rt24-v7l-rt+  
 ```
 ## 5.  Install the patched and built kernel onto your Raspberry Pi 
 
 ```
 cd Code/RPi-rt/linux
 
- # for Bullseye ... 
-sudo cp -v arch/arm/boot/dts/*.dtb /boot/
-sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/overlays/
-sudo cp -v arch/arm/boot/dts/overlays/README /boot/overlays/
-sudo cp -v arch/arm/boot/zImage /boot/$KERNEL.img
-
- # for Bookworm  ... 
-sudo cp -v arch/arm64/boot/dts/broadcom/*.dtb /boot/firmware/
-sudo cp -v arch/arm64/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
-sudo cp -v arch/arm64/boot/dts/overlays/README /boot/firmware/overlays/
-sudo cp -v arch/arm64/boot/Image.gz /boot/firmware/$KERNEL.img
+# for 32 bit Bookworm  ... 
+sudo cp -v arch/arm/boot/dts/*.dtb /boot/firmware/
+sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
+sudo cp -v arch/arm/boot/dts/overlays/README /boot/firmware/overlays/
+sudo cp -v arch/arm/boot/zImage /boot/firmware/$KERNEL.img
 ```
-For 32 bit OS, at the top of /boot/config.txt ... specify the .img file in /boot/ (or /boot/firmware/) to use ...
+edit the first lines of /boot/firmware/config.txt ... 
 ```
 # kernel with PREEMPT_RT
 kernel=kernel7l.img
 ```
-In the [pi4] section of /boot/config.txt ... add ...
+To enable SPI, uncomment  
 ```
+dtparam=spi=on
+```
+edit the last lines of /boot/firmware/config.txt ... 
+```
+[pi4]
 arm_64bit=0
-
-To enable SPI, uncomment  dtparam=spi=on
-
-```
-reboot
-```
-sudo shutdown -r now 
 ```
 After rebooting ... 
 ```
-uname -a
+uname -a          # should  now  indicate ... 6.1.77-rt24-v7l-rt #1 SMP PREEMPT_RT
+getconf LONG_BIT  # should still indicate ... 32 bit 
 ```
-For 32 bit kernels, this should indicate PREEMPT_RT like ... 
-```
-Linux hpg-rpi-00 6.1.77-rt24-v7l-rt+ #1 SMP PREEMPT_RT Sat Feb 17 14:49:50 EST 2024 armv7l GNU/Linux
-```
-
 
 * <https://www.raspberrypi.com/documentation/computers/config_txt.html#kernel>
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html>
