@@ -45,7 +45,7 @@ rm -rf bcm2835-1.75
 [PREEMPT_RT-install-PiOS-20240219](https://github.com/hpgavin/HPGdaac/blob/main/doc/PREEMPT_RT-install-PiOS-20240219.md)
 
 
-5. install gnuplot for simple data plotting after the test
+5. install gnuplot for simple data plotting 
 ```
 sudo apt install gnuplot
 ```

@@ -1,6 +1,6 @@
-# Patching and building Rapsberry Pi OS with PREEMPT_RT ... on 2024-02-19 
+# Patching and building Rapsberry Pi OS with PREEMPT_RT (2024-02-19)
  
-These instructions are modified from Raspberry Pi kernel compilation documentation which includes an example of patching with PREEMPT_RT and building the kernel.   (thank you!!)
+These instructions are modified from the Raspberry Pi kernel compilation documentation, which includes a helpful example of patching with PREEMPT_RT and building the kernel.   (thank you!!)
 
 * <https://www.raspberrypi.com/documentation/computers/linux_kernel.html#building-the-kernel-locally>
 
@@ -8,7 +8,7 @@ These instructions are for the Raspberry Pi 4B running the 32-bit RPi OS bookwor
 
 ## 0.  Patching, configuring and building Raspberry Pi OS with PREEMPT_RT involves ... 
 
- * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number (presuming bookworm and kernel 6.1)
+ * downloading Raspberry Pi OS kernel sources and the PREEMPT_RT patch matching your current Raspberry Pi OS version number (this document presumes the bookworm release and kernel 6.1)
  * patching the Raspberry Pi OS kernel sources with the matching PREEMPT_RT patch
  * configuring the patched Raspberry Pi OS kernel source on the Raspberry Pi 
  * building the patched Raspberry Pi OS kernel on the Raspberry Pi 
@@ -18,19 +18,18 @@ First, update and upgrade your OS distribution and install required packages
 ```
 sudo apt update
 sudo apt upgrade
-<reboot>
+sudo shutdown -r now # reboot the RPi
 sudo apt install git bc bison flex libssl-dev make libncurses-dev
 ```
 
-edit /boot/firmware/config.txt (bookworm) to set
+edit `/boot/firmware/config.txt` (presuming the bookworm release) to set
 ```
-# kernel with PREEMPT_RT
+# kernel with PREEMPT_RT --- put this line near the top of config.txt
 kernel=kernel7l.img
 [pi4]
 arm_64bit=0
 ```
-<reboot>
-
+reboot ... `shutdown -r now` ...
 Confirm the kernel version (6.1), distribution name (bookworm), and bits of your current Raspberry Pi OS installation (32) ...
 ```
 uname -a          # should indicate ... 6.1.0-rpi8-rpi-v7l 
@@ -58,13 +57,14 @@ Confirm the RPi kernel source version, patch level, and sublevel ...
 ```
 cd    Code/RPi-rt/linux
 head  Makefile  -n 4   #  confirm the VERSION, PATCHLEVEL, SUBLEVEL
-# ... results in ... 
-   # SPDX-License-Identifier: GPL-2.0
+# ... indicates ... 
    VERSION = 6
    PATCHLEVEL = 1
    SUBLEVEL = 77
 ```
-The VERSION and PATCHLEVEL of the linux source need to match the output of hostnamectl, above ...
+The VERSION and PATCHLEVEL of the linux source and PREEMPT_RT patch version need to match the output of hostnamectl, above ...
+
+The VERSION, PATCHLEVEL, and SUBLEVEL of the linux source and PREEMPT_RT patch need to match each other.
 
 * <https://wiki.linuxfoundation.org/realtime/preempt_rt_versions>
 * <https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.1/older/>
@@ -101,7 +101,7 @@ make menuconfig               # ... edit the configuration for PREEMPT_RT
     
   < Exit >  < Exit >  and  < Save >  to .config 
 
-confirm that .config contains these lines (32 bit OS for RPi 4) ...
+confirm that `.config` contains these lines (32 bit OS for RPi 4) ...
 ```
  CONFIG_LOCALVERSION="-v7l"
  CONFIG_HIGH_RES_TIMERS=y
@@ -109,8 +109,8 @@ confirm that .config contains these lines (32 bit OS for RPi 4) ...
  CONFIG_HZ_1000=y
  CONFIG_HZ=1000
 ```
-* if CONFIG_LOCALVERSION is not -v7l then something went wrong with this configuration step.  re-do step 3.
-* edit .config to read ...
+* if `CONFIG_LOCALVERSION` is not `"-v7l"` then something went wrong with this configuration step.  re-do step 3.
+* edit `.config` to read ...
 ```
 CONFIG_LOCALVERSION="-v7l-rt"
 ```
@@ -126,12 +126,12 @@ CONFIG_LOCALVERSION="-v7l-rt"
 nproc                         # the number of processors 
 cd /tmp/RPi-rt/linux
 make help                    
-# confirm that zImage (or Image), modules, and dtbs are marked with a "*"
+# confirm that at least zImage (or Image), modules, and dtbs are marked with a "*"
 make -j4 all             # .. this will take about three hours on a RPi 4
 sudo make modules_install
 ```
 At the end of modules_install output,
-the last section of DEPMOD reports the version of your new RT kernel ...   
+the last section of `DEPMOD` should indicate that the version of your new RT kernel includes `-v7l-rt` ...   
 ```
   DEPMOD  lib/modules/6.1.77-rt24-v7l-rt+  
 ```
@@ -140,27 +140,27 @@ the last section of DEPMOD reports the version of your new RT kernel ...
 ```
 cd Code/RPi-rt/linux
 
-# for 32 bit Bookworm  ... 
+ # for 32 bit Bookworm  ... 
 sudo cp -v arch/arm/boot/dts/*.dtb /boot/firmware/
 sudo cp -v arch/arm/boot/dts/overlays/*.dtb* /boot/firmware/overlays/
 sudo cp -v arch/arm/boot/dts/overlays/README /boot/firmware/overlays/
 sudo cp -v arch/arm/boot/zImage /boot/firmware/$KERNEL.img
 ```
-edit the first lines of /boot/firmware/config.txt ... 
+edit the first lines of `/boot/firmware/config.txt` ... 
 ```
-# kernel with PREEMPT_RT
+ # kernel with PREEMPT_RT
 kernel=kernel7l.img
 ```
 To enable SPI, uncomment  
 ```
 dtparam=spi=on
 ```
-edit the last lines of /boot/firmware/config.txt ... 
+edit the last lines of `/boot/firmware/config.txt` ... 
 ```
 [pi4]
 arm_64bit=0
 ```
-After rebooting ... 
+after rebooting ... `shutdown -r now` ... check the kernel and the bit level 
 ```
 uname -a          # should  now  indicate ... 6.1.77-rt24-v7l-rt #1 SMP PREEMPT_RT
 getconf LONG_BIT  # should still indicate ... 32 bit 
