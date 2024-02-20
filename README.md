@@ -191,12 +191,12 @@ Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displa
 When the user chooses to retain the *digitized data file*, **HPGdaac**
 creates or appends a Gnuplot script called `plotall.sh` and 
 an executable shell script file called `scaleall.sh` . 
-Running Gnuplot script `plotall.sh` from within Gnuplot plots the digitized data files. 
+Running `load 'plotall.sh'` from within Gnuplot plots the digitized data files. 
 Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
 
 ### Digitized data file header and format
 
-Every data file created by **HPGdaac** has a standard twelve-line header and columns of space delimited data in units of least significant bit (LSB). 
+Every data file created by **HPGdaac** contains a standard twelve-line header and columns of space delimited integer-valued data in units of least significant bit (LSB). 
 The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
 A voltage value of 0 corresponds to a digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of (2<sup>23</sup>-1) (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
 
