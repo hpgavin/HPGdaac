@@ -1218,7 +1218,7 @@ printf("----------------------------\n\n");
 
   // wait (twice ?? (no 20240217) for an "event" and capture it
   event = xcb_wait_for_event (connection);
-//event = xcb_wait_for_event (connection);
+  event = xcb_wait_for_event (connection);
 
   // change the graphic context for line colors
   gc_mask = XCB_GC_FOREGROUND | XCB_GC_BACKGROUND ;
