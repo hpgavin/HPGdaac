@@ -42,7 +42,7 @@ rm -rf bcm2835-1.75
 ```
 
 4. patch the RPi kernel with PREEMPT-RT with these instructions: 
-[PREEMPT_RT-install-PiOS-20240219](https://github.com/hpgavin/HPGdaac/blob/main/doc/PREEMPT_RT-install-PiOS-20240219.md)
+[PREEMPT_RT-patch-PiOS-20240219](https://github.com/hpgavin/HPGdaac/blob/main/doc/PREEMPT_RT-patch-PiOS-20240219.md)
 
 
 5. install gnuplot for simple data plotting 
