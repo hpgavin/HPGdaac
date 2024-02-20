@@ -189,9 +189,9 @@ After executing the command line ...
 ```
 HPGdaac <test configuration filename> <digitized data filename> 
 ```
-... **HPGdaac** configures the internal parameters of the HPADDA analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
+... **HPGdaac** configures the the ADS1256 analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
 Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
-**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by a date-time stamp of the test.   The user may then choose to delete or retain the *digitized data file*.   
+**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the *digitized data file*.   
 
 When the user chooses to retain the *digitized data file*, **HPGdaac**
 creates or appends a Gnuplot script called `plotall.sh` and 
