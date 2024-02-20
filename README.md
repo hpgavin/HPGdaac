@@ -191,7 +191,7 @@ HPGdaac <test configuration filename> <digitized data filename>
 ```
 ... **HPGdaac** configures the the ADS1256 analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
 Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
-**HPGdaac** saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the *digitized data file*.   
+**HPGdaac** displays the max, min, average and root mean square of each signal in units of LSB and in the units specfied in the *sensor configuration file*.  It then saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the *digitized data file*.   
 
 When the user chooses to retain the *digitized data file*, **HPGdaac**
 creates or appends a Gnuplot script called `plotall.sh` and 
