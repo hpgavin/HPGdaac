@@ -4,7 +4,7 @@
 
 An open-source command-line interface between a Raspberry Pi and a
 [WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm)
-(24 bit, 8 channel, 30 kHz/chnl) hat for the Raspbery Pi.  
+(24 bit, 8 channel, 30 kHz/chnl) hat. 
 
 ---------------------------------
 
@@ -56,8 +56,7 @@ rm -rf bcm2835-1.75
 ```
 
 4. patch the RPi kernel with PREEMPT-RT using instructions 
-[PREEMPT_RT-install-PiOS-20240219]
-(http://www.github.com/hpgavin/HPGdaac/doc/PREEMPT_RT-install-PiOS-20240219.md)
+[PREEMPT_RT-install-PiOS-20240219](http://www.github.com/hpgavin/HPGdaac/doc/PREEMPT_RT-install-PiOS-20240219.md)
 
 
 5. install gnuplot for simple data plotting after the test
@@ -65,7 +64,7 @@ rm -rf bcm2835-1.75
 sudo apt install gnuplot
 ```
 
-6. make and make install
+6. build and install
 ```
 cd ~/Code/HPGdaac
 make clean
@@ -130,7 +129,7 @@ Users may edit the first line (containing a descriptive title) and the eighth li
 
 Example sensor configuration file:
 
- * The `Channel` column corresponds to the pair of `Channel positive` and `Channel negative` pins in the *Test Configuration file*.  
+ * The `Channel` column corresponds to the pair of `Channel Positive` and `Channel Negative` pins in the *Test Configuration file*.  
  * The `Label`   column is a brief text description of the sensor.
  * The `Sensitivity` column is the numerical value of the volts-per-physical-unit of the sensor.  
  * The `V/Unit` column indicates the 'physical unit'
