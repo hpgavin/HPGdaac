@@ -119,7 +119,12 @@ Sensor sensitivities for each channel are specified in the file `snsrs.cfg` (see
 
 Since realtime calculations often involve user-specified constants, (like a feedback gain, for example) values for up to 16 constants may be specified.  See documentation in the Realtime Feedback Control section, below.  
 
-Since input-output tests are often of interest, the input to the system being tested may be specified in a file.  The WaveShare HPADDA hardware implements a DAC8532 (2 channel, 16 bit, 5 Volt) digital-to-analog converter so two analog signals may be output with **HPGdaac**.  A digital value of 0 corresponds to an output voltage of 0 and a digital value of (2<sup>16</sup>-1) (65535) corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical input sequences for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to create such sequences are available from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository.  These programs generate D-to-A files of integer data with values from 0 to 65535.  It is convenient to save these files in a separate directory, e.g., `DA-files`.  
+Nearly simultaneous writes to the DAC8532 (2 channel, 16 bit) digital-to-analog converter and reads from the ADS1256 
+(8 channel, 24 bit) enable input-output tests using **HPGdaac**.
+One or two user-specified D/A data files contain D/A time series.  
+In these files, an integer value of 0 corresponds to an output voltage of 0 and an integer  value of (2<sup>16</sup>-1) (65535)
+corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical time series for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to write such time series data files are provided in the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository. 
+Is implied by the example *test configuration file* above, it is convenient to save these files in a separate directory, e.g., `DA-files`.  
 
 ### Sensor configuration file
 
@@ -193,6 +198,8 @@ creates or appends a Gnuplot script called `plotall.sh` and
 an executable shell script file called `scaleall.sh` . 
 Running `load 'plotall.sh'` from within Gnuplot plots the digitized data files. 
 Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
+
+![HPGdaac screen](https://github.com/hpgavin/HPGdaac/blob/main/img/HPGdaac-02.png)
 
 ### Digitized data file header and format
 
