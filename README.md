@@ -8,20 +8,6 @@ An open-source command-line interface between a Raspberry Pi and a
 
 ---------------------------------
 
-## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
-
-To configure the WaveShare HPADDA board for use with **HPGdaac**, 
-* on the 2x6 pin block, 
-  * connect 'VCC' to '5V'
-  * connect 'VREF' to '5V'
-* on the 2x1 pin block
-  * connect AGND to GND
-* on the 1x13 screw terminal block, to help prevent accidentally shorting 'VCC' to a signal lead, 
-  * mark the 'AGND' terminal with black ink
-  * mark the 'VCC' terminal with red ink
-
----------------------------------
-
 ## Installation 
 
 **HPGdaac** works on the Raspberry Pi 4B (and earlier?) hardware running the 2023-12-05 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v7l) patched with PREEMPT_RT. 
@@ -71,6 +57,20 @@ make clean
 make
 sudo make install
 ```
+
+---------------------------------
+
+## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
+
+To configure the WaveShare HPADDA board for use with **HPGdaac**, 
+* on the 2x6 pin block, 
+  * connect 'VCC' to '5V'
+  * connect 'VREF' to '5V'
+* on the 2x1 pin block
+  * connect AGND to GND
+* on the 1x13 screw terminal block, to help prevent accidentally shorting 'VCC' to a signal lead, 
+  * mark the 'AGND' terminal with black ink
+  * mark the 'VCC' terminal with red ink
 
 ---------------------------------
 
