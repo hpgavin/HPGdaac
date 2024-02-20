@@ -26,7 +26,7 @@ To configure the WaveShare HPADDA board for use with **HPGdaac**,
 
 **HPGdaac** works on the Raspberry Pi 4B (and earlier?) hardware running the 2023-12-05 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v7l) patched with PREEMPT_RT. 
 
-1. clone software from github to your RPi, e.g., e.g., to your ~/Code/ directory
+1. clone software from github to your RPi, e.g., to your ~/Code/ directory
 ```
 mkdir ~/Code
 cd ~/Code
@@ -36,7 +36,7 @@ git clone https://github.com/hpgavin/HPGdaac
 git clone https://github.com/hpgavin/HPGdaac-xtra  
 ```
 
-2. install the xcb development sources
+2. install the xcb ([X protocol C-languange Binding](https://en.wikipedia.org/wiki/XCB)) development sources
 ```
 sudo apt install libx11-xcb-dev
 ```
@@ -55,7 +55,7 @@ cd ..
 rm -rf bcm2835-1.75
 ```
 
-4. patch the RPi kernel with PREEMPT-RT using instructions 
+4. patch the RPi kernel with PREEMPT-RT with these instructions: 
 [PREEMPT_RT-install-PiOS-20240219](http://www.github.com/hpgavin/HPGdaac/doc/PREEMPT_RT-install-PiOS-20240219.md)
 
 
