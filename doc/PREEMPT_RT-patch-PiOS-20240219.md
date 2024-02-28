@@ -14,12 +14,12 @@ These instructions are for the Raspberry Pi 4B running the 32-bit RPi OS bookwor
  * building the patched Raspberry Pi OS kernel on the Raspberry Pi 
  * installing the built Raspberry Pi OS kernel onto the Raspbery Pi
 
-(a) update and upgrade your OS distribution
+(a) Update and upgrade your OS distribution
 ```
 sudo apt update
 sudo apt upgrade
 ```
-(b) edit `/boot/firmware/config.txt` (presuming the bookworm release) to set
+(b) Edit `/boot/firmware/config.txt` (presuming the bookworm release) to set
 ```
 # kernel with PREEMPT_RT --- put this line near the top of config.txt
 kernel=kernel7l.img    % set kernel7l.img
@@ -27,7 +27,7 @@ dtparam=spi=on         # enable SPI
 [pi4]
 arm_64bit=0            # 32 bit operating system 
 ```
-(c) after rebooting ... `sudo shutdown -r now` ...  confirm the kernel version, distribution name, and bits of your current Raspberry Pi OS installation ...
+(c) After rebooting ... `sudo shutdown -r now` ...  confirm the kernel version, distribution name, and bits of your current Raspberry Pi OS installation ...
 ```
 uname -a          # should indicate ... 6.1.0-rpi8-rpi-v7l 
 hostnamectl       # should indicate ... (bookworm)
@@ -91,7 +91,7 @@ make bcm2711_defconfig        # ... apply the default Configuration for RPi 4B
 make menuconfig               # ... edit the configuration for PREEMPT_RT
 ```
 
-  navigate to ...
+  Navigate to ...
 
   General setup ---> Preemtion Model --->
   select Fully Preemptible Kernel (Real-Time) 
@@ -111,9 +111,10 @@ confirm that `.config` contains these lines (32 bit OS for RPi 4) ...
  CONFIG_HZ_1000=y
  CONFIG_HZ=1000
 ```
-* if `CONFIG_LOCALVERSION` is not `"-v7l"` then something went wrong with this configuration step. 
-double check that the edits in `/boot/firmware/config.txt` (presuming the bookworm release) from step 0(b) are still in place and re-do step 3.
-* otherwise, edit `.config` to read ...
+* If `CONFIG_LOCALVERSION` is *not* `"-v7l"` then something went wrong with this configuration step. 
+Double check that the edits in 
+`/boot/firmware/config.txt` (presuming the bookworm release) from step 0(b) are still in place and re-do step 3.
+* Otherwise, edit `.config` to read ...
 ```
 CONFIG_LOCALVERSION="-v7l-rt"
 ```
@@ -133,8 +134,7 @@ make help
 make -j4 all             # .. this will take about three hours on a RPi 4
 sudo make modules_install
 ```
-At the end of modules_install output,
-the last section of `DEPMOD` should indicate that the version of your new RT kernel includes `-v7l-rt` ... as in ... `DEPMOD  lib/modules/6.1.77-rt24-v7l-rt+`
+The end of the output of `make modules_install` should indicate that the version of your new RT kernel includes `-v7l-rt` ... as in ... `DEPMOD  lib/modules/6.1.77-rt24-v7l-rt+`
 
 ## 5.  Install the patched and built kernel onto your Raspberry Pi 
 

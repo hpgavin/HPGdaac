@@ -256,7 +256,8 @@ Usage ...
 ```
 scale <sensor configuration filename> <digitized data filename> <scaled data filename> <data stats filename> 
 ```
-The `<sensor configuration filename>`,  `<digitized data filename>',  `<scaled data filename>`, and the  `<data stats filename>`  may not contain spaces.  
+
+The `<sensor configuration filename>`,  `<digitized data filename>`,  `<scaled data filename>`, and the  `<data stats filename>`  may not contain spaces.  
  
 For example, running ...
 ```
