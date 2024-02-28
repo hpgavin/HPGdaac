@@ -83,7 +83,7 @@ After installation, **HPGdaac** is run from the command-line using:
 ```
 HPGdaac <test configuration filename> <digitized data filename>  
 ```
-The *test configuration filename* and the *digitized data filename* may not contain spaces.  
+The `<test configuration filename>` and the `<digitized data filename>` may not contain spaces.  
 
 ### Test configuration file
 
@@ -124,17 +124,17 @@ Nearly simultaneous writes to the DAC8532 (2 channel, 16 bit) digital-to-analog 
 One or two user-specified D/A data files contain D/A time series.  
 In these files, an integer value of 0 corresponds to an output voltage of 0 and an integer  value of (2<sup>16</sup>-1) (65535)
 corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical time series for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to write such time series data files are provided in the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository. 
-Is implied by the example *test configuration file* above, it is convenient to save these files in a separate directory, e.g., `DA-files`.  
+Is implied by the example `<test configuration file>` above, it is convenient to save these files in a separate directory, e.g., `DA-files`.  
 
 ### Sensor configuration file
 
-The *sensor configuration filename*  may not contain spaces.  
+The `<sensor configuration filename>`  may not contain spaces.  
 
 Users may edit the first line (containing a descriptive title) and the eighth line and following lines in their entirety.   In all other lines, users may edit the content following the colon (`:`).  
 
 Example sensor configuration file:
 
- * The `Channel` column corresponds to the pair of `Channel Positive` and `Channel Negative` pins in the *Test Configuration file*.  
+ * The `Channel` column corresponds to the pair of `Channel Positive` and `Channel Negative` pins in the `<test configuration file>`.  
  * The `Label`   column is a brief text description of the sensor.
  * The `Sensitivity` column is the numerical value of the volts-per-physical-unit of the sensor.  
  * The `V/Unit` column indicates the 'physical unit'
@@ -191,13 +191,14 @@ HPGdaac <test configuration filename> <digitized data filename>
 ```
 ... **HPGdaac** configures the the ADS1256 analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
 Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
-**HPGdaac** displays the max, min, average and root mean square of each signal in units of LSB and in the units specfied in the *sensor configuration file*.  It then saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the *digitized data file*.   
+**HPGdaac** displays the max, min, average and root mean square of each signal in units of LSB and in the units specfied in the `<sensor configuration file>`. 
+It then saves the digitized data to the named `<digitized data file>` (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the `<digitized data file>`.   
 
-When the user chooses to retain the *digitized data file*, **HPGdaac**
+When the user chooses to retain the `<digitized data file>`, **HPGdaac**
 creates or appends a Gnuplot script called `plotall.sh` and 
 an executable shell script file called `scaleall.sh` . 
 Running `load 'plotall.sh'` from within Gnuplot plots the digitized data files. 
-Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
+Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of `<digitized data file>`s.   
 
 ![HPGdaac screen](https://github.com/hpgavin/HPGdaac/blob/main/img/HPGdaac-02.png)
 
@@ -211,7 +212,7 @@ For example, running ...
 ```
 HPGdaac test.cfg  data123  
 ```
-... at 3:14:16 on Tuesday March 14, 2023, with the *test configuration file* shown above, results in a *digitized data file* with a header of 12 lines ...
+... at 3:14:16 on Tuesday March 14, 2023, with the `<test configuration file>` shown above, results in a `<digitized data file>` with a header of 12 lines ...
 
 ```
 % Tue  Mar 14 03:14:16 2023
@@ -249,19 +250,19 @@ This is the most compact and precise way to represent the digitized data.
 
 ### Scaling the digitized data file to desired units
 
-The program **scale** from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) repository uses the *sensor configuration file* to convert the digitized data from units of LSB to the units specified in *sensor configuration file.*
+The program **scale** from the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) repository uses the `<sensor configuration file>` to convert the digitized data from units of LSB to the units specified in the named `<sensor configuration file>`.
 
 Usage ...
 ```
 scale <sensor configuration filename> <digitized data filename> <scaled data filename> <data stats filename> 
 ```
-The *sensor configuration filename*,  *digitized data filename*,  *scaled data filename*, and the  *data stats filename*  may not contain spaces.  
+The `<sensor configuration filename>`,  `<digitized data filename>',  `<scaled data filename>`, and the  `<data stats filename>`  may not contain spaces.  
  
 For example, running ...
 ```
 scale  snsrs.cfg  data123.20230314.031416  data123.20230314.031416.scl  dataStats 
 ```
-... with the `snsrs.cfg` being the  *sensor configuration filename* shown above, 
+... with the `snsrs.cfg` being the  `<sensor configuration filename>` shown above, 
 results in the named **scaled** data file (*data123.20230314.031416.scl*)
 with a header of 19 lines  ... 
 ```
@@ -305,7 +306,7 @@ with a header of 19 lines  ...
 ```
 
 * line 1-11: a copy of lines 1-11 from the digitized data file
-* line 12: the sensor configuration filename 
+* line 12: the `<sensor configuration filename>`
 * line 13: line 1 of the sensor configuration file
 * line 14: sensor voltage sensitivity of each channel
 * line 15-17: columns 5, 6, and 7 of the sensor configuration file 
@@ -318,7 +319,7 @@ The last lines of the scaled data file provide the maximum, minimum, and root me
 In addition to scaling the digitized data to the desired units, the **scale** program corrects for channel-to-channel skew, 
 and optionally interpolates clipped data, applies some smoothing, and detrends the digitized data.   
 
-**scale** appends the *data stats file* with the summary of the maximum, minimum, and root mean square (RMS) of the scaled data.  
+**scale** appends the <`data stats file`> with the summary of the maximum, minimum, and root mean square (RMS) of the scaled data.  
 
 ---------------------------------
 
@@ -336,6 +337,7 @@ and optionally interpolates clipped data, applies some smoothing, and detrends t
 
 ## Acknowledgements 
 
+* [Mike McCauley, C library for Broadcom BCM 2835 as used in Raspberry Pi](http://www.airspayce.com/mikem/bcm2835/)
 * [WaveShsare](https://www.waveshare.com/)
 * [The Curious Scientist](https://www.youtube.com/c/CuriousScientist)
 * [HPADDAlibrary](https://github.com/shujima/HPADDAlibrary)
