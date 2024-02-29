@@ -44,7 +44,7 @@ cd ..
 rm -rf bcm2835-1.75
 ```
 
-4. Patch the RPi kernel with PREEMPT-RT using these instructions: 
+4. Patch the RPi kernel with PREEMPT_RT using these instructions: 
 [PREEMPT_RT-patch-PiOS-20240219](https://github.com/hpgavin/HPGdaac/blob/main/doc/PREEMPT_RT-patch-PiOS-20240219.md)
 
 
