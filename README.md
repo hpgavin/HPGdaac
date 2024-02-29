@@ -4,7 +4,10 @@
 
 A command-line interface between a [Raspberry Pi 4B](https://www.raspberrypi.com/products/raspberry-pi-4-model-b/) and a
 [WaveShare High Performance Analog-Digital Digital-Analog](https://www.waveshare.com/high-precision-ad-da-board.htm) expansion board 
-(AD: 24 bit, 8 chnl; DA: 16 bit, 2 chnl). 
+(AD: 24 bit, 8 chnl; DA: 16 bit, 2 chnl)
+used to digitize up to eight channels at up to 500 samples per second while
+simultaneously plotting data samples as they are digitized, potentially using
+analog output to generate analog signals, and with options for realtime calculations. 
 
 ---------------------------------
 
@@ -12,7 +15,7 @@ A command-line interface between a [Raspberry Pi 4B](https://www.raspberrypi.com
 
 **HPGdaac** works on the Raspberry Pi 4B (and earlier?) hardware running the 2023-12-05 release of **32 bit** Raspsbery Pi OS (Debian 12 (bookworm) kernel 6.1.0-rpi4-rpi-v7l) patched with PREEMPT_RT. 
 
-1. clone software from github to your RPi, e.g., to your ~/Code/ directory
+1. Clone source code from github to your RPi, e.g., to your `~/Code/` directory
 ```
 mkdir ~/Code
 cd ~/Code
@@ -22,12 +25,12 @@ git clone https://github.com/hpgavin/HPGdaac
 git clone https://github.com/hpgavin/HPGdaac-xtra  
 ```
 
-2. install the xcb ([X protocol C-languange Binding](https://en.wikipedia.org/wiki/XCB)) development sources
+2. Install the xcb ([X protocol C-languange Binding](https://en.wikipedia.org/wiki/XCB)) development sources
 ```
 sudo apt install libx11-xcb-dev
 ```
 
-3. install the C library for Broadcom BCM 2835 (and up to BCM 2711) to rapidly access the general purupose Input/Output (GPIO) interface and the Serial Peripheral Interface (SPI) interfaces of the HPADDA hardware. 
+3. Install the C library for the Broadcom BCM 2835 (and BCM 2711) processors to rapidly access the general purupose Input/Output (GPIO) interface and the Serial Peripheral Interface (SPI) interfaces of the HPADDA hardware. 
 ```
 cd ~/Code
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.75.tar.gz
@@ -41,11 +44,11 @@ cd ..
 rm -rf bcm2835-1.75
 ```
 
-4. patch the RPi kernel with PREEMPT-RT with these instructions: 
+4. Patch the RPi kernel with PREEMPT-RT using these instructions: 
 [PREEMPT_RT-patch-PiOS-20240219](https://github.com/hpgavin/HPGdaac/blob/main/doc/PREEMPT_RT-patch-PiOS-20240219.md)
 
 
-5. install gnuplot for simple data plotting 
+5. Install gnuplot for simple data plotting 
 ```
 sudo apt install gnuplot
 ```
@@ -62,7 +65,7 @@ sudo make install
 
 ## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
 
-To configure the WaveShare HPADDA board for use with **HPGdaac**, 
+To configure the WaveShare HPADDA expansion board for use with **HPGdaac**, 
 * on the 2x6 pin block, 
   * connect 'VCC' to '5V'
   * connect 'VREF' to '5V'
@@ -107,7 +110,7 @@ Number of Control Constants                : 0
 D/A 0 data filename                        : DA-files/chirp0.dat
 D/A 1 data filename                        : DA-files/chirp1.dat
 ```
-With  with this test configuration **HPGdaac** will collect data for 66 seconds, scanning two differential-input channels, 100 times each second, and digitizing each channel voltage in 0.5 milli-seconds (2000 conversions per second). 
+With the test configuration shown above,  **HPGdaac** will collect data for 66 seconds, scanning two differential-input channels, 100 times each second, and digitizing each channel voltage in 0.5 milli-seconds (2000 conversions per second). 
 
 In this example,  *Channel 0* measures the voltage difference (*V*<sub>0</sub> - *V*<sub>1</sub>) between pin 0 (positive) and pin 1 (negative) and *Channel 1* measures the voltage difference(*V*<sub>2</sub> - *V*<sub>3</sub>)  between pin 2 (positive) and pin 3 (negative).  
 
@@ -121,10 +124,9 @@ Since realtime calculations often involve user-specified constants, (like a feed
 
 Nearly simultaneous writes to the DAC8532 (2 channel, 16 bit) digital-to-analog converter and reads from the ADS1256 
 (8 channel, 24 bit) enable input-output tests using **HPGdaac**.
-One or two user-specified D/A data files contain D/A time series.  
-In these files, an integer value of 0 corresponds to an output voltage of 0 and an integer  value of (2<sup>16</sup>-1) (65535)
-corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical time series for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse,  Command-line programs to write such time series data files are provided in the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository. 
-Is implied by the example `<test configuration file>` above, it is convenient to save these files in a separate directory, e.g., `DA-files`.  
+One or two user-specified D/A data files contain D/A time series.  In these files, an integer value of 0 corresponds to an output voltage of 0 and an integer  value of (2<sup>16</sup>-1) (65535)
+corresponds to an output voltage of +5.000 volts.   The output voltage increment is 5/(2<sup>16</sup>-1), about 0.2 milli-volts.   Typical time series for input-output tests include frequency-sweep (a.k.a. chirp) of sinusoidal, triangular, or square waves, band limited Gaussian noise, and an impulse.  Command-line programs to write such time series data files are provided in the [HPGdaac-xtra](https://www.github.com/hpgavin/HPGdaac-xtra) github repository. 
+As implied by the example `<test configuration file>` above, it is convenient to save these files in a separate directory, e.g., `DA-files`.  
 
 ### Sensor configuration file
 
@@ -140,7 +142,7 @@ Example sensor configuration file:
  * The `V/Unit` column indicates the 'physical unit'
  * The `DeClip` column indicates how the scaling operation will deal with clipped data
  * The `Detrend` column indicates how the scaling operation will deal with biased or trending data
- * The 'Smooth` column indicates how much the scaling operation will smooth the digitized data
+ * The `Smooth` column indicates how much the scaling operation will smooth the digitized data
 
 ```
 A template sensor configuration file for HPGdaac
@@ -192,20 +194,20 @@ HPGdaac <test configuration filename> <digitized data filename>
 ... **HPGdaac** configures the the ADS1256 analog-to-digital converter, opens a window for plotting the digitized data in real time, and asks if the user is ready.  
 Pressing `[enter]` or `Y [enter]` initiates the test.   Digitized data is displayed to the screen the instant it is digitized.  When the test is complete
 **HPGdaac** displays the max, min, average and root mean square of each signal in units of LSB and in the units specfied in the `<sensor configuration file>`. 
-It then saves the digitized data to the named `<digitized data file>` (a plain text file) in which the provided `digitized data file name` is appended by the date and time of the test.   The user may then choose to retain or delete the `<digitized data file>`.   
+It then saves the digitized data to the named *digitized data file* (a plain text file) in which the provided `<digitized data filename>` is appended by the date and time of the test.   The user may then choose to retain or delete the *digitized data file*.   
 
-When the user chooses to retain the `<digitized data file>`, **HPGdaac**
+When the user chooses to retain the *digitized data file*, **HPGdaac**
 creates or appends a Gnuplot script called `plotall.sh` and 
 an executable shell script file called `scaleall.sh` . 
 Running `load 'plotall.sh'` from within Gnuplot plots the digitized data files. 
-Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of `<digitized data file>`s.   
+Running shell script `scaleall.sh` scales, de-clips, detrends, and smooths the digitized data in a group of *digitized data files*.   
 
 ![HPGdaac screen](https://github.com/hpgavin/HPGdaac/blob/main/img/HPGdaac-02.png)
 
 ### Digitized data file header and format
 
 Every data file created by **HPGdaac** contains a standard twelve-line header and columns of space delimited integer-valued data in units of least significant bit (LSB). 
-The WaveShare HPADDA board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
+The WaveShare HPADDA expansion board implements a (8 channel, 24 bit) ADS1256 analog-to-digital converter.  
 A voltage value of 0 corresponds to a digital value of 0 and a voltage value equal to the measurement range  corresponds to a digital value of (2<sup>23</sup>-1) (8388607).   The digitized voltage increment for a five volt measuring range is 5/(2<sup>23</sup>-1), about 0.6 micro-volts. 
 
 For example, running ...
