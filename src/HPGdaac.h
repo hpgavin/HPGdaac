@@ -12,13 +12,13 @@
 
 #ifndef _HPADDAGC_H_
 #define _HPADDAGC_H_
-
 #include "HPADDAlib.h"        // High-Performance AD/DA library files
 
+#define SCREEN_W  1500   
+#define SCREEN_H   590
 #define MAXL       256   /* maximum line length allowed for title & sens */
 
 #define MAX(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
-
 
   struct CHNL {        // channel information
          char label[MAXL];     // channel description
