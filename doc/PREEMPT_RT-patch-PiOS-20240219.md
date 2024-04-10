@@ -22,7 +22,7 @@ sudo apt upgrade
 (b) Edit `/boot/firmware/config.txt` (presuming the bookworm release) to set
 ```
 # kernel with PREEMPT_RT --- put this line near the top of config.txt
-kernel=kernel7l.img    % set kernel7l.img
+kernel=kernel7l.img    # set kernel7l.img
 dtparam=spi=on         # enable SPI
 [pi4]
 arm_64bit=0            # 32 bit operating system 
