@@ -61,6 +61,12 @@ make
 sudo make install
 ```
 
+7. configure new window placement with wayfire 
+```
+echo [place] >> ~/.config/wayfire.cfg
+echo mode=cascade >> ~/.config/wayfire.cfg
+```
+
 ---------------------------------
 
 ## WaveShare High Performance Analog-Digital, Digital-Analog (HPADDA) hardware configuration
