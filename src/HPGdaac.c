@@ -100,7 +100,7 @@ uint32_t   smpl = 0,        // current sample number
 #if GRAPHICS
   float    xu=0, xo=0,             // x axis unit, place, offsets
            yu=0, yo=0;             // y axis unit, place, offsets
-  static uint32_t CHNL_COLR[8] = {0xacbca2, 0xfc0202, 0xfc4102, 0xeffc02, 0x30fc02, 0x02fcdf, 0x0217fc, 0xf402fc};  // bruel+kjaer
+  static uint32_t CHNL_COLR[8] = {0xffffff, 0xff9205, 0x02ce2a, 0x02c3c4, 0x2201c4, 0xe0ee02, 0xce02c7, 0xf2031d};  // bruel+kjaer
 #endif // GRAPHICS
 
 #if CONTROL
@@ -241,11 +241,11 @@ int main (int argc, char *argv[])
 
   int ll = 75-strlen(title);
   color(0); color(1); color(33);
-  printf ("________________________________________");
-  printf ("________________________________________\n");
+  fprintf (stderr,"________________________________________");
+  fprintf (stderr,"________________________________________\n");
   color(33); color(44);
-  printf ("  %s %*s \n", title, ll, " " );
-  printf ("  %d scans at %6.1f sps and %7.1f cps in %.3f seconds on %d channels \n", nScan, sr, drate, dtime, nChnl );
+  fprintf (stderr,"  %s %*s  \n", title, ll, " " );
+  fprintf (stderr,"  %d scans of %d channels at %6.1f sps and %7.1f cps in %.3f seconds\n", nScan, nChnl, sr, drate, dtime );
   color(0); color(1); color(32);
  
   color(1); color(33);
@@ -270,7 +270,7 @@ int main (int argc, char *argv[])
     fprintf(stderr,"\033[24C");                    // move the cursor right 24 
     color(1); color(32); fprintf(stderr,"  *");
     color(1); color(35); fprintf(stderr," ---------------------------------> ");
-    color(1); color(35); fprintf(stderr,"  ok, let's go!\n"); // indicate start
+    color(1); color(35); fprintf(stderr,"  ok, let's go!  \n"); // start!
   }
 
   startTime = time(NULL);
@@ -701,7 +701,7 @@ void pretest_sample_stats( struct CHNL *chnl, unsigned nChnl, uint8_t muxCode[],
   }
 
   for ( chn = 0; chn < nChnl;  chn++ ) {
-    printf("                        bias[%d] = %8.0f      rms[%d] = %8.0f \n", 
+    fprintf(stderr,"                        bias[%d] = %8.0f      rms[%d] = %8.0f \n", 
                  chn, chnl[chn].bias, chn, chnl[chn].rms);
   }
 
@@ -849,7 +849,7 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
   fprintf(fp, "%% %s\n", title );
   fprintf(fp, "%% Data file '%s' created", adDataFilename );
   fprintf(fp, " using configuration '%s' \n", argv[1] );
-  fprintf(fp, "%% %u scans of %d channels at %.0f scans per second in %.3f seconds\n",nScan, nChnl, sr, dtime);
+  fprintf(fp, "%%  %d scans of %d channels at %6.1f sps and %7.1f cps in %.3f seconds\n", nScan, nChnl, sr, drate, dtime );
   fprintf(fp, "%% %s\n", chnlDesc );
 
   fprintf(fp, "%% voltage ranges \n");
@@ -936,47 +936,47 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
   }
 
   color(0); color(1); color(33);
-  printf ("________________________________________");
-  printf ("________________________________________\n");
+  fprintf (stderr,"________________________________________");
+  fprintf (stderr,"________________________________________\n");
   color(33); color(44);
-  printf ("  %*s  ", 76, strtok(ctime(&startTime), "\n"));
+  fprintf (stderr,"  %*s  ", 76, strtok(ctime(&startTime), "\n"));
   color(0); color(1); color(32);
-  printf ("\n\n");
-  printf (" CHANNEL     LABEL      ");
-  printf("MIN      MAX      AVG      RMS\n");
+  fprintf (stderr,"\n\n");
+  fprintf (stderr," CHANNEL     LABEL      ");
+  fprintf(stderr,"MIN      MAX      AVG      RMS\n");
   color(0); color(1); color(33);
-  printf ("________________________________________");
-  printf ("________________________________________\n");
+  fprintf (stderr,"________________________________________");
+  fprintf (stderr,"________________________________________\n");
   for (chn = 0; chn < nChnl; chn++) {
     color(1);
-    color(32);  printf(" %2d ",chn);
-    color(35);  printf("%18s ", chnl[chn].label );
-    color(36);  printf("%8.3f %8.3f %8.3f %8.3f  ",
+    color(32);  fprintf(stderr," %2d ",chn);
+    color(35);  fprintf(stderr,"%18s ", chnl[chn].label );
+    color(36);  fprintf(stderr,"%8.3f %8.3f %8.3f %8.3f  ",
                         min[chn], max[chn], avg[chn], rms[chn]);
-    color(35);  printf("volts ");
+    color(35);  fprintf(stderr,"volts ");
     if ( (min[chn] < -0.95*ADS1256_range_value(rangeCode[chn]) ) ||
          (max[chn] >  0.95*ADS1256_range_value(rangeCode[chn])) ) {
     
 //    putchar('\a');
-      color(0); color(41);  printf("CLIPPED!");
+      color(0); color(41);  fprintf(stderr,"CLIPPED!");
       color(0); color(1); color(36);
     }
-    printf("\n");
-    printf("                       ");
-    color(36);  printf("%8.3f %8.3f %8.3f %8.3f  ",
+    fprintf(stderr,"\n");
+    fprintf(stderr,"                       ");
+    color(36);  fprintf(stderr,"%8.3f %8.3f %8.3f %8.3f  ",
                         min[chn]/chnl[chn].sensi, max[chn]/chnl[chn].sensi,
                         avg[chn]/chnl[chn].sensi, rms[chn]/chnl[chn].sensi);
-    color(35);  printf("%s", chnl[chn].units);
-    printf("\n");
+    color(35);  fprintf(stderr,"%s", chnl[chn].units);
+    fprintf(stderr,"\n");
   }
 
 //fflush(stdin);
 //ch = getchar();
 
   color(0); color(1); color(33);
-  printf ("________________________________________");
-  printf ("________________________________________\n");
-  printf("  data saved to file '%s'   keep file? ", adDataFilename);
+  fprintf (stderr,"________________________________________");
+  fprintf (stderr,"________________________________________\n");
+  fprintf(stderr,"  data saved to file '%s'   keep file? ", adDataFilename);
   color(1); color(32); fprintf(stderr,"  [Y]");
   color(1); color(37); fprintf(stderr,"/");
   color(1); color(31); fprintf(stderr,"n  ");
@@ -1045,7 +1045,7 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
 
   }
   color(0); color(1); color(36);
-  printf("\n");
+  fprintf(stderr,"\n");
 
   return;
 }
@@ -1194,15 +1194,22 @@ printf("----------------------------\n\n");
                       XCB_COPY_FROM_PARENT,          /* depth           */
                       window,                        /* window Id       */
                       screen->root,                  /* parent window   */
-                      0, 0,                          /* x, y            */
+                      0, SCREEN_H/2,                 /* x, y            */
                       SCREEN_W, SCREEN_H,            /* width, height   */
                       10,                            /* border_width    */
                       XCB_WINDOW_CLASS_INPUT_OUTPUT, /* class           */
                       screen->root_visual,           /* visual          */
-                      gc_mask, gc_value );          /* mask and values */
+                      gc_mask, gc_value );           /* mask and values */
 
   // map the window onto the connection and flush the connection
   xcb_map_window (connection, window);
+
+  gc_mask = XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y; /* window position */
+  gc_value[0] = SCREEN_X;
+  gc_value[1] = SCREEN_Y;
+
+  xcb_configure_window( connection, window, gc_mask, gc_value );
+
   xcb_flush (connection);
 
   // change the title of the window

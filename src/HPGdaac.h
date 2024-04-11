@@ -14,8 +14,12 @@
 #define _HPADDAGC_H_
 #include "HPADDAlib.h"        // High-Performance AD/DA library files
 
-#define SCREEN_W  1500   
+// coordinates of screen position and screen dimentions
+#define SCREEN_X   670   
+#define SCREEN_Y    10
+#define SCREEN_W  1205
 #define SCREEN_H   590
+
 #define MAXL       256   /* maximum line length allowed for title & sens */
 
 #define MAX(a,b) ({ __typeof__ (a) _a = (a); __typeof__ (b) _b = (b); _a > _b ? _a : _b; })
