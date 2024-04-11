@@ -1315,7 +1315,7 @@ printf("----------------------------\n\n");
             SCREEN_W-100, YB+15*(chn+1), CHNL_COLR[chn],0x0, chnl[chn].label );
   }
 
-  fprintf(stderr," plot_set up . . . . . . . . . . . . . . . . . . . . . . . . .  success \n"); 
+  fprintf(stderr," plot set up  . . . . . . . . . . . . . . . . . . . . . . . . . .  success \n"); 
   return;
 }
 
