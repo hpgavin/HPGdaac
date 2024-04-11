@@ -15,7 +15,7 @@
 #include "HPADDAlib.h"        // High-Performance AD/DA library files
 
 // coordinates of screen position and screen dimentions
-#define SCREEN_X   670   
+#define SCREEN_X   870   
 #define SCREEN_Y    10
 #define SCREEN_W  1205
 #define SCREEN_H   590
