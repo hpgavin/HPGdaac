@@ -943,17 +943,18 @@ void save_data ( char *argv[], char *title, unsigned nChnl,
   color(0); color(1); color(32);
   fprintf (stderr,"\n\n");
   fprintf (stderr," CHANNEL     LABEL      ");
-  fprintf(stderr,"MIN      MAX      AVG      RMS\n");
+  fprintf(stderr,"MIN      MAX      AVG      RMS       RANGE \n");
   color(0); color(1); color(33);
   fprintf (stderr,"________________________________________");
-  fprintf (stderr,"________________________________________\n");
+  fprintf (stderr,"_______________________________________\n");
   for (chn = 0; chn < nChnl; chn++) {
     color(1);
     color(32);  fprintf(stderr," %2d ",chn);
     color(35);  fprintf(stderr,"%18s ", chnl[chn].label );
     color(36);  fprintf(stderr,"%8.3f %8.3f %8.3f %8.3f  ",
                         min[chn], max[chn], avg[chn], rms[chn]);
-    color(35);  fprintf(stderr,"volts ");
+    color(35);  
+    fprintf(stderr,"%6.3f V", ADS1256_range_value(rangeCode[chn]) ); 
     if ( (min[chn] < -0.95*ADS1256_range_value(rangeCode[chn]) ) ||
          (max[chn] >  0.95*ADS1256_range_value(rangeCode[chn])) ) {
     
